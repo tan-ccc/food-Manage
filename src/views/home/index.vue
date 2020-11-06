@@ -1,0 +1,301 @@
+<template>
+  <div class="home">
+    <!-- 用户信息 -->
+    <el-row :gutter="15">
+      <el-col :span="16">
+        <el-card>
+          <div slot="header">
+            <span>我的工作台</span>
+          </div>
+          <div class="user-item">
+            <div class="user-item-left">
+              <img :src="userImg" />
+            </div>
+            <div class="user-item-right">
+              <el-row>
+                <el-col :span="24" class="right-title mb15">{{currentTime}}，YY，祝你开心每一天！</el-col>
+                <el-col :span="24">
+                  <el-col :span="8" class="right-l-v">
+                    <div class="right-label">昵称：</div>
+                    <div class="right-value">小柒</div>
+                  </el-col>
+                  <el-col :span="16" class="right-l-v">
+                    <div class="right-label">身份：</div>
+                    <div class="right-value">管理员</div>
+                  </el-col>
+                </el-col>
+                <el-col :span="24" class="mt5">
+                  <el-col :span="8" class="right-l-v">
+                    <div class="right-label">登录ip：</div>
+                    <div class="right-value">192.168.1.1</div>
+                  </el-col>
+                  <el-col :span="16" class="right-l-v">
+                    <div class="right-label">上次登录时间：</div>
+                    <div class="right-value">2020-08-16 08:20:01</div>
+                  </el-col>
+                </el-col>
+                <el-col :span="24" class="mt15">
+                  <el-button size="small" icon="el-icon-edit-outline" @click="$refs.homeUserSetDialog.open()">修改信息
+                  </el-button>
+                  <el-button size="small" icon="el-icon-unlock">修改密码</el-button>
+                  <el-button size="small" icon="el-icon-position" type="primary">发布活动</el-button>
+                </el-col>
+              </el-row>
+            </div>
+          </div>
+        </el-card>
+      </el-col>
+      <el-col :span="8">
+        <el-card>
+          <div slot="header">
+            <span>消息通知</span>
+            <el-button class="home-card-more" type="text">更多</el-button>
+          </div>
+          <div class="info">
+            <Scroll :data="newsInfoList" class="info-scroll" :class-option="optionSingleHeight">
+              <ul class="info-ul">
+                <li v-for="(v,k) in newsInfoList" :key="k" class="info-item">
+                  <div class="info-item-left" v-text="v.title"></div>
+                  <div class="info-item-right" v-text="v.date"></div>
+                </li>
+              </ul>
+            </Scroll>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
+
+    <!-- 推荐 -->
+    <el-card class="mt15">
+      <div slot="header">
+        <span>营销推荐</span>
+        <el-button class="home-card-more" type="text">更多</el-button>
+      </div>
+      <el-row :gutter="15" class="home-recommend-row">
+        <el-col :span="6" v-for="(v,k) in recommendList" :key="k">
+          <div class="home-recommend" :style="{'background-color': v.bg}">
+            <i :class="v.icon" :style="{'color': v.iconColor}"></i>
+            <div class="home-recommend-auto">
+              <div>{{v.title}}</div>
+              <div class="home-recommend-msg">{{v.msg}}</div>
+            </div>
+          </div>
+        </el-col>
+      </el-row>
+    </el-card>
+
+    <!-- charts -->
+    <el-row :gutter="15" class="mt15">
+      <el-col :span="8">
+        <el-card>
+          <div slot="header">
+            <span>库存作业</span>
+          </div>
+          <div class="charts">
+            <div class="charts-right">
+              <ve-pie :data="chartData3" :settings="chartSettings3" height="310px"></ve-pie>
+            </div>
+          </div>
+        </el-card>
+      </el-col>
+      <el-col :span="16">
+        <el-card>
+          <div slot="header">
+            <span>履约情况</span>
+          </div>
+          <div class="charts">
+            <div class="charts-left mr7">
+              <ve-ring :data="chartData4" :settings="chartSettings4" height="310px"></ve-ring>
+            </div>
+            <div class="charts-right ml7">
+              <ve-bar :data="chartData5" :settings="chartSettings5" height="310px"></ve-bar>
+            </div>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
+
+    <!-- v-charts -->
+    <el-row :gutter="15" class="mt15">
+      <el-col :span="16">
+        <el-card>
+          <div slot="header">
+            <span>缺货监控</span>
+            <el-date-picker v-model="charts.time" type="date" placeholder="选择日期" class="home-card-time" size="mini">
+            </el-date-picker>
+          </div>
+          <div class="charts">
+            <div class="charts-left mr7">
+              <ve-line :data="chartData1" :settings="chartSettings1" height="310px" v-loading="chartData1Loading">
+              </ve-line>
+            </div>
+            <div class="charts-right ml7">
+              <ve-histogram :data="chartData2" :settings="chartSettings2" height="310px"></ve-histogram>
+            </div>
+          </div>
+        </el-card>
+      </el-col>
+      <el-col :span="8">
+        <el-card>
+          <div slot="header">
+            <span>履约超时预警</span>
+          </div>
+          <div class="home-charts">
+            <div class="home-charts-item" v-for="(v,k) in chartsRightList" :key="k">
+              <div class="home-charts-item-left">
+                <div class="home-charts-item-title">{{v.title}}</div>
+                <div class="home-charts-item-num" :style="{'color': v.color}">{{v.num}}</div>
+              </div>
+              <div class="home-charts-item-right">
+                <i :class="v.icon" :style="{'background-color': v.iconBg, 'color': v.color}"></i>
+              </div>
+            </div>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
+    <HomeUserSetDialog ref="homeUserSetDialog" />
+  </div>
+</template>
+
+<script>
+import { dragDialog } from "@/utils/directive";
+import { formatAxis } from "@/utils/formatTime";
+import { recommendList, chartsRightList, newsInfoList } from "@/mock/home";
+import Scroll from "vue-seamless-scroll";
+import HomeUserSetDialog from "@/components/dialog/homeUserSetDialog";
+export default {
+  name: "home",
+  components: { Scroll, HomeUserSetDialog },
+  data() {
+    this.chartSettings1 = {
+      metrics: ["访问用户"],
+      dimension: ["日期"],
+    };
+    this.chartSettings2 = {
+      stack: { 用户: ["访问用户", "下单用户"] },
+      showLine: ["下单用户"],
+    };
+    this.chartSettings3 = {
+      radius: 80,
+      offsetY: 150,
+      level: [
+        ["1/1", "1/2", "1/3"],
+        ["1/4", "1/5"],
+      ],
+    };
+    this.chartSettings4 = {
+      radius: [60, 80],
+      offsetY: 150,
+      level: [
+        ["1/1", "1/2", "1/3"],
+        ["1/4", "1/5"],
+      ],
+    };
+    this.chartSettings5 = {
+      stack: {
+        xxx: ["访问用户", "下单用户"],
+      },
+    };
+    return {
+      recommendList,
+      chartsRightList,
+      newsInfoList,
+      chartData1: {
+        columns: [],
+        rows: [],
+      },
+      chartData1Loading: false,
+      chartData1DataEmpty: false,
+      chartData2: {
+        columns: ["日期", "访问用户", "下单用户", "下单率"],
+        rows: [
+          { 日期: "1/1", 访问用户: 1393, 下单用户: 1093, 下单率: 0.32 },
+          { 日期: "1/2", 访问用户: 3530, 下单用户: 3230, 下单率: 0.26 },
+          { 日期: "1/3", 访问用户: 2923, 下单用户: 2623, 下单率: 0.76 },
+          { 日期: "1/4", 访问用户: 1723, 下单用户: 1423, 下单率: 0.49 },
+          { 日期: "1/5", 访问用户: 3792, 下单用户: 3492, 下单率: 0.323 },
+          { 日期: "1/6", 访问用户: 4593, 下单用户: 4293, 下单率: 0.78 },
+        ],
+      },
+      chartData3: {
+        columns: ["日期", "访问用户"],
+        rows: [
+          { 日期: "1/1", 访问用户: 1393 },
+          { 日期: "1/2", 访问用户: 3530 },
+          { 日期: "1/3", 访问用户: 2923 },
+          { 日期: "1/4", 访问用户: 1723 },
+          { 日期: "1/5", 访问用户: 3792 },
+          { 日期: "1/6", 访问用户: 4593 },
+        ],
+      },
+      chartData4: {
+        columns: ["日期", "访问用户"],
+        rows: [
+          { 日期: "1/1", 访问用户: 1393 },
+          { 日期: "1/2", 访问用户: 3530 },
+          { 日期: "1/3", 访问用户: 2923 },
+          { 日期: "1/4", 访问用户: 1723 },
+          { 日期: "1/5", 访问用户: 3792 },
+        ],
+      },
+      chartData5: {
+        columns: ["日期", "访问用户", "下单用户", "下单率"],
+        rows: [
+          { 日期: "1/1", 访问用户: 1393, 下单用户: 1093, 下单率: 0.32 },
+          { 日期: "1/2", 访问用户: 3530, 下单用户: 3230, 下单率: 0.26 },
+          { 日期: "1/3", 访问用户: 2923, 下单用户: 2623, 下单率: 0.76 },
+          { 日期: "1/4", 访问用户: 1723, 下单用户: 1423, 下单率: 0.49 },
+          { 日期: "1/5", 访问用户: 3792, 下单用户: 3492, 下单率: 0.323 },
+          { 日期: "1/6", 访问用户: 4593, 下单用户: 4293, 下单率: 0.78 },
+        ],
+      },
+      userImg:
+        "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1813762643,1914315241&fm=26&gp=0.jpg",
+      charts: {
+        time: "",
+      },
+    };
+  },
+  created() {
+    dragDialog();
+    this.getChartData1();
+  },
+  computed: {
+    currentTime() {
+      return formatAxis(new Date());
+    },
+    optionSingleHeight() {
+      return {
+        singleHeight: 28,
+        limitMoveNum: 8,
+        waitTime: 2000,
+      };
+    },
+  },
+  methods: {
+    // 图表假数据模拟
+    getChartData1() {
+      this.chartData1Loading = true;
+      setTimeout(() => {
+        this.chartData1 = {
+          columns: ["日期", "访问用户", "下单用户", "下单率"],
+          rows: [
+            { 日期: "1/1", 访问用户: 1393, 下单用户: 1093, 下单率: 0.32 },
+            { 日期: "1/2", 访问用户: 3530, 下单用户: 3230, 下单率: 0.26 },
+            { 日期: "1/3", 访问用户: 2923, 下单用户: 2623, 下单率: 0.76 },
+            { 日期: "1/4", 访问用户: 1723, 下单用户: 1423, 下单率: 0.49 },
+            { 日期: "1/5", 访问用户: 3792, 下单用户: 3492, 下单率: 0.323 },
+            { 日期: "1/6", 访问用户: 4593, 下单用户: 4293, 下单率: 0.78 },
+          ],
+        };
+        this.chartData1Loading = false;
+      }, 1000);
+    },
+  },
+};
+</script>
+
+<style scoped lang="scss">
+@import "./index.scss";
+</style>
