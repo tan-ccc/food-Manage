@@ -4,7 +4,7 @@
 vue-admin-wonderful，一套为开发者快速开发准备的基于 vue2.x 越看越精彩的后台管理系统一站式平台模板。
 
 #### 线上预览
-[网站地址](https://lyt-top.gitee.io/vue-admin-wonderful-preview)
+[网站地址：https://lyt-top.gitee.io/vue-admin-wonderful-preview](https://lyt-top.gitee.io/vue-admin-wonderful-preview)
 
 #### 安装教程
 
