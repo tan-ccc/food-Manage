@@ -48,7 +48,7 @@ export default {
     this.init();
   },
   computed: {
-    // 动态高度，适配各布局。单页面的画，高度设为100%即可。
+    // 动态高度，适配各布局。单页面的话，高度设为100%即可。
     styleHeight() {
       let { layout, isTagsView } = this.$store.state.layoutConfig
       if (layout === 'fashion' || layout === 'strange') {

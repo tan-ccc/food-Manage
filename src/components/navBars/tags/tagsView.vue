@@ -56,10 +56,18 @@ export default {
     this.bus.$on('initTagsList', () => {
       this.initTagsList();
     })
+    /**
+     * 监听离开详情页，如 `筛选组件` 中列表点击，离开时，关闭 `tagsView` 中
+     * 显示的详情页 `tags` 项
+     */
+    this.bus.$on('closeCurrentTabsView', path => {
+      this.tagsList = this.tagsList.filter(v => v.path !== path);
+    })
   },
   destroyed() {
     // 关闭右键菜单 `tagsContextmenu.vue`, 每项点击监听
     this.bus.$off("closeTagsContextmenu");
+    this.bus.$off("closeCurrentTabsView");
   },
   methods: {
     // 递归过滤 `affix: true` 的数组
@@ -82,7 +90,7 @@ export default {
     filterCurrentMenu(arr, currentPath, callback) {
       arr.map(item => {
         if (item.path === currentPath) {
-          callback(item)
+          callback(item);
           return false;
         }
         item = Object.assign({}, item);
@@ -96,17 +104,20 @@ export default {
       let newobj = {};
       arr = arr.reduce((preVal, curVal) => {
         newobj[curVal.title] ? '' : newobj[curVal.title] = preVal.push(curVal);
-        return preVal
+        return preVal;
       }, [])
-      return arr
+      return arr;
     },
     // 初始化设置了 `affix: true` 和当前路由（防止刷新时丢失） 固定项数据(router -> routes.js)
     initTagsList() {
-      let arr = []
+      let arr = [];
       this.filterCurrentMenu(menuList, this.$route.path, res => {
-        arr.push(res)
+        arr.push(res);
       })
-      this.tagsList = this.duplicate([...this.filterMenu(menuList), ...arr])
+      this.tagsList = this.duplicate([...this.filterMenu(menuList), ...arr]);
+      // 防止菜单设置了 `hidden: true` 时，刷新页面，`tagsView` 丢失高亮问题
+      let flag = this.tagsList.filter(v => v.path === this.$route.path).length <= 0 ? true : false;
+      if (flag) this.$router.push('/home');
     },
     // 当前高亮的菜单
     isActive(v) {

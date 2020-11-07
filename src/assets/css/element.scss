@@ -171,3 +171,18 @@
 .el-alert--error.is-light {
   border: 1px solid rgba(245, 108, 108, 0.3) !important;
 }
+.el-table-column--selection {
+  .el-checkbox {
+    margin-right: unset !important;
+  }
+}
+.el-table--border th:first-child .cell,
+.el-table--border td:first-child .cell {
+  padding-left: unset !important;
+  padding-right: 0 !important;
+}
+.el-table::before,
+.el-table--group::after,
+.el-table--border::after {
+  z-index: 99 !important;
+}

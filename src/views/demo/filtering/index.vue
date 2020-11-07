@@ -16,7 +16,7 @@
     <el-card class="filtering-list br-top-no" v-loading="tableData.loading" element-loading-text="加载中..."
       element-loading-background="rgba(255, 255, 255, 0.1)" :class="{'min-h-360': tableData.data.length <= 0}">
       <div class="flex-warp" v-if="tableData.data.length > 0">
-        <div class="flex-warp-item" v-for="(v,k) in tableData.data" :key="k">
+        <div class="flex-warp-item" v-for="(v,k) in tableData.data" :key="k" @click="onTableItemClick(v)">
           <div class="flex-warp-item-box">
             <div class="item-img">
               <img :src="v.img" />
@@ -113,6 +113,13 @@ export default {
       setTimeout(() => {
         this.tableData.loading = false;
       }, 500);
+    },
+    // 当前列表项点击
+    onTableItemClick(v) {
+      this.$router.push({
+        path: '/demo/filtering-details',
+        query: { id: v.id }
+      })
     },
     // 分页点击
     handleSizeChange(val) {

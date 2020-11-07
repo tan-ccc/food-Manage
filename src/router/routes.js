@@ -178,6 +178,16 @@ export default [
             },
           },
           {
+            path: '/demo/filtering-details',
+            component: () => import('@/views/demo/filtering/component/details'),
+            meta: {
+              parent: '/demo',
+              icon: 'el-icon-s-marketing',
+              title: '筛选组件详情',
+              hidden: true
+            },
+          },
+          {
             path: 'externalLinkUrl',
             meta: {
               title: '大数据可视化',
@@ -238,6 +248,15 @@ export default [
               parent: '/demo',
               icon: 'el-icon-location-information',
               title: '天地图',
+            },
+          },
+          {
+            path: '/demo/table',
+            component: () => import('@/views/demo/table/index'),
+            meta: {
+              parent: '/demo',
+              icon: 'el-icon-tickets',
+              title: '表格',
             },
           },
         ],

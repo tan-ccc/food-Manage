@@ -108,6 +108,7 @@ export const filterList = [
         collection: (Math.random() * 100).toFixed(2),
         price: (Math.random() * 10).toFixed(2),
         monSales: (Math.random() * 20).toFixed(2),
+        id: 1
     },
     {
         img:
@@ -117,6 +118,7 @@ export const filterList = [
         collection: (Math.random() * 100).toFixed(2),
         price: (Math.random() * 10).toFixed(2),
         monSales: (Math.random() * 20).toFixed(2),
+        id: 2
     },
     {
         img:
@@ -127,6 +129,7 @@ export const filterList = [
         collection: (Math.random() * 100).toFixed(2),
         price: (Math.random() * 10).toFixed(2),
         monSales: (Math.random() * 20).toFixed(2),
+        id: 3
     },
     {
         img:
@@ -136,6 +139,7 @@ export const filterList = [
         collection: (Math.random() * 100).toFixed(2),
         price: (Math.random() * 10).toFixed(2),
         monSales: (Math.random() * 20).toFixed(2),
+        id: 4
     },
     {
         img:
@@ -145,6 +149,7 @@ export const filterList = [
         collection: (Math.random() * 100).toFixed(2),
         price: (Math.random() * 10).toFixed(2),
         monSales: (Math.random() * 20).toFixed(2),
+        id: 5
     },
     {
         img:
@@ -154,6 +159,7 @@ export const filterList = [
         collection: (Math.random() * 100).toFixed(2),
         price: (Math.random() * 10).toFixed(2),
         monSales: (Math.random() * 20).toFixed(2),
+        id: 6
     },
     {
         img:
@@ -163,6 +169,7 @@ export const filterList = [
         collection: (Math.random() * 100).toFixed(2),
         price: (Math.random() * 10).toFixed(2),
         monSales: (Math.random() * 20).toFixed(2),
+        id: 7
     },
     {
         img:
@@ -172,6 +179,7 @@ export const filterList = [
         collection: (Math.random() * 100).toFixed(2),
         price: (Math.random() * 10).toFixed(2),
         monSales: (Math.random() * 20).toFixed(2),
+        id: 8
     },
     {
         img:
@@ -181,6 +189,7 @@ export const filterList = [
         collection: (Math.random() * 100).toFixed(2),
         price: (Math.random() * 10).toFixed(2),
         monSales: (Math.random() * 20).toFixed(2),
+        id: 9
     },
     {
         img:
@@ -190,5 +199,6 @@ export const filterList = [
         collection: (Math.random() * 100).toFixed(2),
         price: (Math.random() * 10).toFixed(2),
         monSales: (Math.random() * 20).toFixed(2),
+        id: 10
     },
 ];
