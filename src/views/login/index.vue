@@ -244,31 +244,16 @@ export default {
     position: relative;
     z-index: 1;
     border: none;
+    box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
     .login-left {
       width: 500px;
       padding: 20px;
       font-size: 16px;
       color: #fff;
       position: relative;
-      background-color: #09f;
+      background-color: rgba(0, 153, 255, 0.6);
       display: flex;
       flex-direction: column;
-      &::before,
-      &::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-      }
-      &::before {
-        background: url("~@/assets/images/login/login-left2.png") no-repeat 0 0;
-      }
-      &::after {
-        background: url("~@/assets/images/login/login-left1.png") no-repeat
-          right bottom;
-      }
       .login-time {
         width: 100%;
         color: #fff;
@@ -321,7 +306,7 @@ export default {
       position: relative;
       align-items: center;
       display: flex;
-      background-color: #ffffff;
+      background-color: rgba(255, 255, 255, 0.9);
       .login-main {
         margin: 0 auto;
         width: 70%;
