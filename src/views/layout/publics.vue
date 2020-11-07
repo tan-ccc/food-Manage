@@ -16,9 +16,7 @@ export default {
   },
   created() {
     this.bus.$on("refreshCurrentPage", (path) => {
-      let t = new Date().getTime();
-      this.key = t;
-      this.$router.push({ path, query: { t } });
+      this.key = new Date().getTime();
     });
   },
 };
