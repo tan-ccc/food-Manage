@@ -3,11 +3,9 @@ import axios from "axios";
 import { Message, MessageBox } from "element-ui";
 import { clearSession, getSession } from "@/utils/storage";
 
-const baseURL = `/api`;
-
 const service = axios.create({
-  baseURL: baseURL,
-  timeout: 100000,
+  baseURL: process.env.VUE_APP_BASE_API,
+  timeout: 50000,
   headers: {
     "Content-Type": "application/json",
   },
@@ -48,23 +46,23 @@ service.interceptors.response.use(
       Message.error("网络连接错误");
     } else {
       if (error.response.status == 401) {
-        const msgTxt = "";
-        if (error.response.headers["key"] == "401.2") {
-          msgTxt = "您的账户已在别的设备登陆";
+        const message = "";
+        if (error.response.headers["key"] == "4011") {
+          message = "当前账户已在别处登陆";
         } else {
-          msgTxt = "登录超时，请重新登录";
+          message = "登录超时，请重新登录";
         }
         clearSession(); // 清除浏览器全部临时缓存
         router.push("/login");
         MessageBox.alert({
           title: "系统提示",
-          message: msgTxt,
+          message
         }).then(() => {
           window.location.href = "/"; // 清空地址栏多余参数
         });
       } else {
         if (error.response.data.message) {
-          TMessage.error(error.response.data.message);
+          Message.error(error.response.data.message);
         }
       }
     }
