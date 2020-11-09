@@ -48,7 +48,7 @@ service.interceptors.response.use(
       if (error.response.status == 401) {
         const message = "";
         if (error.response.headers["key"] == "4011") {
-          message = "当前账户已在别处登陆";
+          message = "账号已在别处登陆";
         } else {
           message = "登录超时，请重新登录";
         }
