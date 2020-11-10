@@ -1,48 +1,33 @@
-// global transition css
-
-/* fade */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.28s;
+/* 页面切换动画 */
+.fade-transform-enter-active,
+.fade-transform-leave-active {
+  will-change: transform;
+  transition: all 0.5s ease;
+  backface-visibility: hidden;
+  perspective: 1000;
 }
-
-.fade-enter,
-.fade-leave-active {
-  opacity: 0;
-}
-
-/* fade-transform */
-.fade-transform-leave-active,
-.fade-transform-enter-active {
-  transition: all 0.5s;
-}
-
 .fade-transform-enter {
   opacity: 0;
-  transform: translateX(-30px);
+  transform: translate3d(-30px, 0, 0);
 }
-
-.fade-transform-leave-to {
+.fade-transform-leave-active {
   opacity: 0;
-  transform: translateX(30px);
+  transform: translate3d(30px, 0, 0);
 }
 
-/* breadcrumb transition */
+/* Breadcrumb 面包屑过渡动画 */
 .breadcrumb-enter-active,
 .breadcrumb-leave-active {
   transition: all 0.5s;
 }
-
 .breadcrumb-enter,
 .breadcrumb-leave-active {
   opacity: 0;
   transform: translateX(20px);
 }
-
 .breadcrumb-move {
   transition: all 0.5s;
 }
-
 .breadcrumb-leave-active {
   position: absolute;
 }
