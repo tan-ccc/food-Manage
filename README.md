@@ -18,10 +18,14 @@
 </div>
 
 #### 介绍
-<a href="http://lyt-top.gitee.io/vue-admin-wonderful-preview" target="_blank">vue-admin-wonderful</a>，一套为开发者快速开发准备的基于 <a href="https://cn.vuejs.org/" target="_blank">vue2.x、</a> <a href="https://element.eleme.cn/#/zh-CN" target="_blank">element ui 2.14.0</a> 越看越精彩的后台管理系统一站式平台模板。此次发布了5个模板：分为1个总版（包含全部基础模板），4个基础模板，希望可以帮助你实现快速开发。
+<a href="http://lyt-top.gitee.io/vue-admin-wonderful-preview" target="_blank">vue-admin-wonderful</a>，
+一套为开发者快速开发准备的基于 <a href="https://cn.vuejs.org/" target="_blank">vue2.x、 </a>
+<a href="https://element.eleme.cn/#/zh-CN" target="_blank">element ui 2.14.0</a> 越看越精彩的后台管理系统一站式平台模板。
+此次发布了5个模板：分为1个 pro 版本（包含全部基础模板），4个基础模板。
+可选择相对应的模板进行预览及下载，希望可以帮助你实现快速开发。
 
 #### 线上预览
-+ 总版预览 <a href="http://lyt-top.gitee.io/vue-admin-wonderful-preview" target="_blank">http://lyt-top.gitee.io/vue-admin-wonderful-preview</a>
++ pro 版本预览 <a href="http://lyt-top.gitee.io/vue-admin-wonderful-preview" target="_blank">http://lyt-top.gitee.io/vue-admin-wonderful-preview</a>
 
 #### 安装 cnpm
 + 复制代码(桌面cmd运行) `npm install -g cnpm --registry=https://registry.npm.taobao.org`
@@ -46,8 +50,14 @@ npm run serve
 npm run build
 ```
 
+#### 开发文档
++ [http://lyt-top.gitee.io/vue-admin-wonderful-doc/index.html](http://lyt-top.gitee.io/vue-admin-wonderful-doc)
+
 #### 鸣谢
 +  [vue](https://github.com/vuejs/vue)
 +  [element-ui](https://github.com/ElemeFE/element)
 +  [axios](https://github.com/axios/axios)
 +  [vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)
+
+#### 其他
++ [vue3.x](https://v3.vuejs.org/guide/introduction.html) 版本暂未考虑，等待更多的 `UI` 框架。
