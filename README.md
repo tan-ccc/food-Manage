@@ -22,7 +22,7 @@
 一套为开发者快速开发准备的基于 <a href="https://cn.vuejs.org/" target="_blank">vue2.x、 </a>
 <a href="https://element.eleme.cn/#/zh-CN" target="_blank">element ui 2.14.0</a> 越看越精彩的后台管理系统一站式平台模板。
 此次发布了5个模板：分为1个 pro 版本（包含全部基础模板），4个基础模板。
-可选择相对应的模板进行预览及下载，希望可以帮助你实现快速开发。
+可选择相对应的模板进行预览及下载，希望可以帮你完成快速开发。
 
 #### 线上预览
 + pro 版本预览 <a href="http://lyt-top.gitee.io/vue-admin-wonderful-preview" target="_blank">http://lyt-top.gitee.io/vue-admin-wonderful-preview</a>

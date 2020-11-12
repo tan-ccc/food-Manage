@@ -306,7 +306,7 @@ export default {
       position: relative;
       align-items: center;
       display: flex;
-      background-color: rgba(255, 255, 255, 0.9);
+      background-color: rgba(255, 255, 255, 1);
       .login-main {
         margin: 0 auto;
         width: 70%;
