@@ -47,18 +47,20 @@ service.interceptors.response.use(
     } else {
       if (error.response.status == 401) {
         const message = "";
-        if (error.response.headers["key"] == "4011") {
-          message = "账号已在别处登陆";
+        if (error.response.data.status == "4001") {
+          message = "您的号已在别处登录";
         } else {
           message = "登录超时，请重新登录";
         }
-        clearSession(); // 清除浏览器全部临时缓存
+        // 清除浏览器全部临时缓存
+        clearSession();
         router.push("/login");
         MessageBox.alert({
-          title: "系统提示",
+          title: "提示",
           message
         }).then(() => {
-          window.location.href = "/"; // 清空地址栏多余参数
+          // 清空地址栏多余参数
+          window.location.href = "/";
         });
       } else {
         if (error.response.data.message) {
