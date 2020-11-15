@@ -16,12 +16,12 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-import { menuList } from "@/mock/menuList";
+import { routesFilter } from "@/utils/routesFilter";
 export default {
   name: "strangSplitMent",
   data() {
     return {
-      menuList,
+      menuList: routesFilter,
     };
   },
   created() {

@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { menuList } from "@/mock/menuList";
+import { routesFilter } from "@/utils/routesFilter";
 import SubMenu from "@/components/subMenu";
 import NavBars from "@/components/navBars";
 export default {
@@ -52,7 +52,7 @@ export default {
     this.bus.$on("sendClassicSplitMenuData", (menuData) => {
       this.menuList = [];
       if (menuData === null) {
-        this.setTimeoutMenuData(menuList);
+        this.setTimeoutMenuData(routesFilter);
       } else {
         this.setTimeoutMenuData(menuData);
       }
@@ -82,7 +82,7 @@ export default {
     // 未开启 `自动菜单分割`，直接使用路由数据
     initMenu() {
       if (!this.$store.state.layoutConfig.isSplitMenu) {
-        this.menuList = menuList;
+        this.menuList = routesFilter;
       }
     },
     // 左侧菜单点击事件

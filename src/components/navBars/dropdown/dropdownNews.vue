@@ -8,11 +8,12 @@
             <div class="head-box-btn">全部已读</div>
           </div>
           <div class="content-box">
-            <div class="content-box-item" v-for="v in 2" :key="v">
-              <div>关于帐号原名称保护期已到期的通知</div>
+            <div class="content-box-item" v-for="v in 1" :key="v">
+              <div>关于版本发布的通知</div>
               <div class="content-box-msg">
-                你好，帐号已在2020年05月01日完成改名，原名称[petworld]的2天保护期已到期。2020年05月03日10时29分开始，原名称已释放，其他用户可申请使用。</div>
-              <div class="content-box-time">2020-05-03</div>
+                vue-admin-wonderful， 一套为开发者快速开发准备的基于 vue2.x、 element ui 2.14.0 越看越精彩的后台管理系统一站式平台模板。 此次发布了5个模板：分为1个 pro
+                版本（包含全部基础版本），4个基础版本。 可选择相对应的模板进行预览及下载，希望可以帮你完成快速开发。</div>
+              <div class="content-box-time">2020-11-15</div>
             </div>
           </div>
           <div class="foot-box">前往通知中心</div>

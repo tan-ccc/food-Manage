@@ -33,18 +33,11 @@
 
 #### 代码仓库
 + pro 版本 <a href="https://gitee.com/lyt-top/vue-admin-wonderful" target="_blank">http://lyt-top.gitee.io/vue-admin-wonderful</a>
-+ fashion 版本 <a href="http://lyt-top.gitee.io/vue-admin-wonderful-fashion" target="_blank">http://lyt-top.gitee.io/vue-admin-wonderful-fashion</a>
-+ classic 版本 <a href="http://lyt-top.gitee.io/vue-admin-wonderful-classic" target="_blank">http://lyt-top.gitee.io/vue-admin-wonderful-classic</a>
-+ elegant 版本 <a href="http://lyt-top.gitee.io/vue-admin-wonderful-elegant" target="_blank">http://lyt-top.gitee.io/vue-admin-wonderful-elegant</a>
-+ strange 版本 <a href="http://lyt-top.gitee.io/vue-admin-wonderful-strange" target="_blank">http://lyt-top.gitee.io/vue-admin-wonderful-strange</a>
 
 #### 安装 cnpm
 + 复制代码(桌面cmd运行) `npm install -g cnpm --registry=https://registry.npm.taobao.org`
 
 #### 使用说明
-+ 请注意对应版本的路径，比如你选择 `fashion 版本`
-+ 只需要加上对应版本后缀即可 `-xxxxx`，如 `git clone https://gitee.com/lyt-top/vue-admin-wonderful-fashion.git`
-+ cd 进入项目目录同理，加上 `-xxxxx`，如 `vue-admin-wonderful-fashion`
 
 ```bash
 # 克隆项目
@@ -63,9 +56,11 @@ npm run serve
 npm run build
 ```
 
-#### 开发文档
-+ <a href="http://lyt-top.gitee.io/vue-admin-wonderful-doc/index.html" target="_blank">http://lyt-top.gitee.io/vue-admin-wonderful-doc/index.html</a>
-+ 在开发了，进度0%
+#### qq群
++ 群号码：<a target="_blank" href="https://wpa.qq.com/msgrd?v=3&uin=1105290566&site=qqq&menu=yes">1105290566</a>
++ 进群下载基础模板，查看开发文档，问题解决等。
+
+<img src="https://gitee.com/lyt-top/vue-admin-wonderful-images/raw/master/md-logo.svg" alt="1105290566">
 
 #### 鸣谢
 + <a href="https://github.com/vuejs/vue" target="_blank">vue</a>

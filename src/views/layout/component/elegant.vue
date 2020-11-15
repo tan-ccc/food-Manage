@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { menuList } from "@/mock/menuList";
+import { routesFilter } from "@/utils/routesFilter";
 import SubMenu from "@/components/subMenu";
 import NavBars from "@/components/navBars";
 export default {
@@ -41,7 +41,7 @@ export default {
         label: "title",
         index: "path",
       },
-      menuList,
+      menuList: routesFilter,
       backtop: null
     };
   },

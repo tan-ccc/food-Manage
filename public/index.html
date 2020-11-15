@@ -9,73 +9,12 @@
       content="vue-admin-wonderful，一套为开发者快速开发准备的基于 vue2.x、element ui 2.14.0 越看越精彩的后台管理系统一站式平台模板，希望可以帮你完成快速开发。"
     />
     <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="./loading.css" />
     <title>vue-admin-wonderful</title>
-    <style type="text/css">
-      .index-loading {
-        position: fixed;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 22px;
-        color: #cbc9cb;
-      }
-      .index-loading span {
-        animation: text cubic-bezier(0.75, 0, 0.5, 1) 1.5s infinite;
-      }
-      @keyframes text {
-        0% {
-          color: #898789;
-        }
-        20% {
-          color: #cbc9cb;
-        }
-        100% {
-          color: #cbc9cb;
-        }
-      }
-    </style>
   </head>
   <body>
-    <script>
-      var num = 0;
-      var str = 'vue-admin-wonderful';
-      var arr = str.split('');
-      var bodys = document.body;
-      var div = document.createElement('div');
-      div.setAttribute('class', 'index-loading');
-      for (var i = 0; i < arr.length; i++) {
-        var span = document.createElement('span');
-        span.innerHTML = arr[i];
-        div.appendChild(span);
-      }
-      bodys.insertBefore(div, bodys.childNodes[0]);
-      var spanArr = document.querySelectorAll('.index-loading span');
-      for (var j = 0; j < spanArr.length; j++) {
-        num += 1000 / spanArr.length;
-        spanArr[j].setAttribute('style', 'animation-delay:' + num + 'ms');
-      }
-      window.onload = function() {
-        var delEl = document.querySelector('.index-loading');
-        delEl.remove();
-      };
-    </script>
-    <noscript>
-      <strong
-        >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
-        properly without JavaScript enabled. Please enable it to
-        continue.</strong
-      >
-    </noscript>
+    <script src="./loading.js"></script>
     <div id="app"></div>
-    <script src="./tianditu.js"></script>
-    <script>
-      var _hmt = _hmt || [];
-      (function() {
-        var hm = document.createElement('script');
-        hm.src = 'https://hm.baidu.com/hm.js?4cd84d7913cb13e280479e49045e3876';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(hm, s);
-      })();
-    </script>
+    <script src="./tianditu.js" defer="defer"></script>
   </body>
 </html>

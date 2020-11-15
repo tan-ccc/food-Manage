@@ -57,43 +57,38 @@ export const chartsRightList = [
 export const newsInfoList = [
   {
     title:
-      "[系统公告] 修复部分地图要素使用错误颜色的问题改进在不同缩放比例下滑雪地图信息显示问题",
-    date: "12/18",
-  },
-  {
-    title: "[系统公告] 改进在不同缩放比例下滑雪地图信息显示问题",
-    date: "12/17",
+      "[版本发布] 2020年11月15日发布 v1.0.0 版本",
+    date: "11/15",
+    link: 'https://gitee.com/lyt-top/vue-admin-wonderful'
   },
   {
     title:
-      "[修复公告] 修复路线规划可能会失败的问题、赛车程序可能无法自动开始计时的问题",
-    date: "12/16",
+      "[版本预览] pro 版本预览 http://lyt-top.gitee.io/vue-admin-wonderful-preview",
+    date: "11/15",
+    link: 'http://lyt-top.gitee.io/vue-admin-wonderful-preview'
   },
   {
     title:
-      "[系统公告] 修复在位置列表中潜在的显示、使用搜索我的周围功能时可能潜在的问题",
-    date: "12/15",
-  },
-  {
-    title: "[改善公告] 改善了GPS表现、在非GPS活动中允许启用GPS以应对紧急情况",
-    date: "12/14",
-  },
-  {
-    title: "[添加公告] 添加了更多的提示信息以方便操作跑步机校准得到改善",
-    date: "12/13",
+      "[版本预览] fashion 版本预览 http://lyt-top.gitee.io/vue-admin-wonderful-fashion-preview",
+    date: "11/15",
+    link: 'http://lyt-top.gitee.io/vue-admin-wonderful-fashion-preview'
   },
   {
     title:
-      "[新增公告] 新增了在音频内容中可切换立体声或单声道播放的功能、新增了关闭音频音调的选项",
-    date: "12/12",
-  },
-  {
-    title: "[优化公告] 为Wi-Fi音乐同步添加了信号强度指示潜在的异常耗电问题",
-    date: "12/11",
+      "[版本预览] classic 版本预览 http://lyt-top.gitee.io/vue-admin-wonderful-classic-preview",
+    date: "11/15",
+    link: 'http://lyt-top.gitee.io/vue-admin-wonderful-classic-preview'
   },
   {
     title:
-      "[系统公告] 修复了一些由于通知而导致用户警示无法响起的情况、跑步机校准得到改善",
-    date: "12/10",
+      "[版本预览] elegant 版本预览 http://lyt-top.gitee.io/vue-admin-wonderful-elegant-preview",
+    date: "11/15",
+    link: 'http://lyt-top.gitee.io/vue-admin-wonderful-elegant-preview'
   },
+  {
+    title:
+      "[版本预览] strange 版本预览 http://lyt-top.gitee.io/vue-admin-wonderful-strange-preview",
+    date: "11/15",
+    link: 'http://lyt-top.gitee.io/vue-admin-wonderful-strange-preview'
+  }
 ];

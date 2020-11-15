@@ -54,7 +54,7 @@
           <div class="info">
             <Scroll :data="newsInfoList" class="info-scroll" :class-option="optionSingleHeight">
               <ul class="info-ul">
-                <li v-for="(v,k) in newsInfoList" :key="k" class="info-item">
+                <li v-for="(v,k) in newsInfoList" :key="k" class="info-item" @click="onNewsInfoListClick(v)">
                   <div class="info-item-left" v-text="v.title"></div>
                   <div class="info-item-right" v-text="v.date"></div>
                 </li>
@@ -292,6 +292,10 @@ export default {
         this.chartData1Loading = false;
       }, 1000);
     },
+    // 消息通知当前项点击
+    onNewsInfoListClick(v) {
+      window.open(v.link);
+    }
   },
 };
 </script>

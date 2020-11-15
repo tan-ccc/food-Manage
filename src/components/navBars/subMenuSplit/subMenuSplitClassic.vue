@@ -13,12 +13,12 @@
 </template>
 
 <script>
-import { menuList } from "@/mock/menuList";
+import { routesFilter } from "@/utils/routesFilter";
 export default {
   name: "classicSplitMenu",
   data() {
     return {
-      menuList,
+      menuList: routesFilter,
     };
   },
   created() {
