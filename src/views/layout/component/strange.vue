@@ -6,8 +6,8 @@
       <div class="fashion-warp-left-box">
         <div :class="[
             $store.state.layoutConfig.isCollapse
-              ? 'el-menu--collapse-strange'
-              : '',
+              ? 'el-menu--collapse-strange-close'
+              : 'el-menu--collapse-strange-open',
             'fashion-warp-logo',
             $store.state.layoutConfig.subMenuTheme === 'dark'
               ? 'fashion-warp-logo-dark'
@@ -26,9 +26,8 @@
               ? 'submenu-theme-dark'
               : 'submenu-theme-light'
           ">
-          <SubMenu :menu-list="menuList" :props="defaultProps" @getmenu="onGetMenu" :class="{
-              'el-menu--collapse-strange': $store.state.layoutConfig.isCollapse,
-            }" />
+          <SubMenu :menu-list="menuList" :props="defaultProps" @getmenu="onGetMenu"
+            :class="$store.state.layoutConfig.isCollapse ? 'el-menu--collapse-strange-close' : 'el-menu--collapse-strange-open'" />
         </el-scrollbar>
       </div>
       <div class="fashion-warp-righ-box">
