@@ -44,11 +44,12 @@ body,
       box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);
       border-right: 1px solid #e6e6e6;
       .el-menu--collapse-strange-close {
-        width: 0px !important;
+        width: 1px !important;
+        transition: all ease-in-out 0.3s;
       }
       .el-menu--collapse-strange-open {
-        transition: 0.3s width ease-in, 0.3s padding-left ease-in,
-          0.3s padding-right ease-in !important;
+        width: 210px !important;
+        transition: all ease-in-out 0.3s;
       }
       .fashion-warp-logo {
         height: 53px;
