@@ -29,7 +29,7 @@ service.interceptors.response.use(
 	(response) => {
 		// 对响应数据做点什么
 		const res = response.data;
-		if (res.code !== 0) {
+		if (res.code && res.code !== 0) {
 			// `token` 过期或者账号已在别处登录
 			if (res.code === 401 || res.code === 4001) {
 				// 清除浏览器全部临时缓存
@@ -40,7 +40,8 @@ service.interceptors.response.use(
 					message: '你已被登出，请重新登录'
 				}).then(() => {
 					// 清空地址栏多余参数
-					window.location.href = "/";
+					this.$router.push('/login')
+					window.location.reload()
 				});
 			}
 			return Promise.reject(service.interceptors.response.error);

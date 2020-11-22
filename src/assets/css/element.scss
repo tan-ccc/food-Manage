@@ -141,16 +141,6 @@
   border-width: 1px !important;
   border-style: solid !important;
   border-color: #ebeef5 !important;
-  position: fixed !important;
-  left: 50% !important;
-  top: 20px !important;
-  transform: translateX(-50%) !important;
-  background-color: #edf2fc !important;
-  transition: opacity 0.3s, transform 0.4s, top 0.4s !important;
-  overflow: hidden !important;
-  padding: 13px 13px 13px 18px !important;
-  display: flex !important;
-  align-items: center !important;
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
   background-color: #fff !important;
   border-radius: 3px !important;
@@ -175,11 +165,6 @@
   .el-checkbox {
     margin-right: unset !important;
   }
-}
-.el-table--border th:first-child .cell,
-.el-table--border td:first-child .cell {
-  padding-left: unset !important;
-  padding-right: 0 !important;
 }
 .el-table::before,
 .el-table--group::after,

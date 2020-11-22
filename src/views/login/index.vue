@@ -24,12 +24,13 @@
           <h4 class="login-title">vue-admin-wonderful</h4>
           <el-form class="el-form login-form" :model="ruleForm" :rules="rules" ref="ruleForm">
             <el-form-item style="margin-left: 0px" prop="userName">
-              <el-input type="text" placeholder="请输入用户名" prefix-icon="el-icon-user" v-model="ruleForm.userName"
-                clearable autocomplete="off" @keyup.enter.native.stop="submitForm('ruleForm')" ref="userName">
+              <el-input type="text" placeholder="用户名 admin 或 test" prefix-icon="el-icon-user"
+                v-model="ruleForm.userName" clearable autocomplete="off"
+                @keyup.enter.native.stop="submitForm('ruleForm')" ref="userName">
               </el-input>
             </el-form-item>
             <el-form-item style="margin-left: 0px" prop="password">
-              <el-input :type="isView ? 'type' : 'password'" placeholder="请输入密码" prefix-icon="el-icon-lock"
+              <el-input :type="isView ? 'type' : 'password'" placeholder="密码：123456" prefix-icon="el-icon-lock"
                 v-model="ruleForm.password" clearable autocomplete="off"
                 @keyup.enter.native.stop="submitForm('ruleForm')" ref="password">
                 <i slot="suffix" :class="[
@@ -87,7 +88,7 @@ export default {
       if (value === "") {
         callback(new Error("请输入用户名"));
         this.inputFocus(0);
-      } else if (value !== "yy") {
+      } else if (value !== "admin" && value !== "test") {
         callback(new Error("用户名输入错误"));
         this.inputFocus(0);
       } else {
@@ -128,9 +129,9 @@ export default {
         loadingTxt: "登录",
       },
       ruleForm: {
-        userName: "yy",
-        password: "123456",
-        code: Math.random().toString(36).substr(-4),
+        userName: "",
+        password: "",
+        code: '',
       },
       rules: {
         userName: [{ validator: validateUserName, trigger: "blur" }],
@@ -185,6 +186,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           setSession("token", Math.random().toString(36).substr(0));
+          setSession("userInfo", { userName: this.ruleForm.userName, time: new Date().getTime() })
           this.$router.push("/");
           setTimeout(() => {
             this.$message.success(`${this.currentTime}欢迎回来！`);

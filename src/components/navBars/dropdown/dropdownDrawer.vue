@@ -139,7 +139,7 @@
     <div class="copy-config" v-if="isDev()">
       <el-alert title="点击下方按钮，复制布局配置。路径：src/store/index.js" type="warning" :closable="false">
       </el-alert>
-      <el-button size="small" class="copy-config-btn" icon="el-icon-document-copy" @click="onCopyConfig">复制设置
+      <el-button size="small" class="copy-config-btn" icon="el-icon-document-copy" @click="onCopyConfig">一键复制配置
       </el-button>
     </div>
   </el-drawer>
@@ -148,6 +148,7 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import { setSession } from "@/utils/storage";
+import ClipboardJS from 'clipboard';
 export default {
   name: "dropdownDrawer",
   data() {
@@ -215,7 +216,17 @@ export default {
       this.bus.$emit("sendClassicSplitMenuData", null);
     },
     onCopyConfig() {
-
+      let clipboardJS = new ClipboardJS('.copy-config-btn', {
+        text: () => JSON.stringify(this.layouts)
+      });
+      clipboardJS.on('success', e => {
+        this.$message.success('配置复制成功');
+        this.isDrawer = false;
+        clipboardJS.destroy();
+      })
+      clipboardJS.on('error', e => {
+        this.$message.error('配置复制失败');
+      })
     }
   },
 };

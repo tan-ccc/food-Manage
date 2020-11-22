@@ -24,12 +24,17 @@ export default new Vuex.Store({
       subMenuTheme: 'dark', // 菜单主题颜色 1、 dark 暗色  2、 light 亮色
       isSplitMenu: false, // 自动菜单分割(仅 classic 经典布局生效)
     },
+    menuData: {} // 后端返回动态路由
   },
   mutations: {
     // 触发 layoutConfig 配置更新
     getLayoutConfig(state, res) {
       state.layoutConfig = res;
     },
+    // 后端返回动态路由
+    setMenuData(state, res) {
+      state.menuData = res
+    }
   },
   actions: {
     // 触发 layoutConfig 配置更新

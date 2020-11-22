@@ -13,7 +13,7 @@
             </div>
             <div class="user-item-right">
               <el-row>
-                <el-col :span="24" class="right-title mb15">{{currentTime}}，YY，祝你开心每一天！</el-col>
+                <el-col :span="24" class="right-title mb15">{{currentTime}}，{{userInfo.userName}}，祝你开心每一天！</el-col>
                 <el-col :span="24">
                   <el-col :span="8" class="right-l-v">
                     <div class="right-label">昵称：</div>
@@ -21,7 +21,7 @@
                   </el-col>
                   <el-col :span="16" class="right-l-v">
                     <div class="right-label">身份：</div>
-                    <div class="right-value">管理员</div>
+                    <div class="right-value">{{userInfo.userName === 'admin' ? '超级管理' : '普通用户'}}</div>
                   </el-col>
                 </el-col>
                 <el-col :span="24" class="mt5">
@@ -30,8 +30,8 @@
                     <div class="right-value">192.168.1.1</div>
                   </el-col>
                   <el-col :span="16" class="right-l-v">
-                    <div class="right-label">上次登录时间：</div>
-                    <div class="right-value">2020-08-16 08:20:01</div>
+                    <div class="right-label">登录时间：</div>
+                    <div class="right-value">{{userInfo.time}}</div>
                   </el-col>
                 </el-col>
                 <el-col :span="24" class="mt15">
@@ -159,8 +159,9 @@
 </template>
 
 <script>
+import { getSession } from '@/utils/storage'
 import { dragDialog } from "@/utils/directive";
-import { formatAxis } from "@/utils/formatTime";
+import { formatAxis, formatDate } from "@/utils/formatTime";
 import { recommendList, chartsRightList, newsInfoList } from "@/mock/home";
 import Scroll from "vue-seamless-scroll";
 import HomeUserSetDialog from "@/components/dialog/homeUserSetDialog";
@@ -255,11 +256,13 @@ export default {
       charts: {
         time: "",
       },
+      userInfo: {}
     };
   },
   created() {
     dragDialog();
     this.getChartData1();
+    this.initUserInfo()
   },
   computed: {
     currentTime() {
@@ -274,6 +277,12 @@ export default {
     },
   },
   methods: {
+    // 初始化登录信息
+    initUserInfo() {
+      if (!getSession('userInfo')) return false
+      this.userInfo = getSession('userInfo')
+      this.userInfo.time = formatDate(new Date(this.userInfo.time), 'YYYY-mm-dd HH:MM:SS')
+    },
     // 图表假数据模拟
     getChartData1() {
       this.chartData1Loading = true;

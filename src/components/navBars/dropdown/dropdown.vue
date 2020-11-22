@@ -13,7 +13,7 @@
       <span class="el-dropdown-link">
         <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1813762643,1914315241&fm=26&gp=0.jpg"
           class="user-photo mr5" v-if="$store.state.layoutConfig.isUserPhoto" />
-        yy
+        {{userInfo.userName}}
         <i class="el-icon-arrow-down el-icon--right"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
@@ -27,7 +27,7 @@
 
 <script>
 import screenfull from "screenfull";
-import { clearSession } from "@/utils/storage";
+import { getSession, clearSession } from "@/utils/storage";
 import { dropdownList } from "@/mock/dropdownList";
 import DropdownDrawer from "@/components/navBars/dropdown/dropdownDrawer";
 import DropdownNews from "@/components/navBars/dropdown/dropdownNews";
@@ -38,15 +38,22 @@ export default {
     return {
       dropdownList,
       isFullscreen: false,
+      userInfo: {}
     };
   },
   mounted() {
+    this.initUserInfo()
     this.initScreenfull();
   },
   destroyed() {
     this.destroyScreenfull();
   },
   methods: {
+    // 初始化登录信息
+    initUserInfo() {
+      if (!getSession('userInfo')) return false
+      this.userInfo = getSession('userInfo')
+    },
     // 初始化全屏
     initScreenfull() {
       if (screenfull.isEnabled) {
@@ -100,10 +107,13 @@ export default {
         })
           .then((action) => {
             clearSession();
-            this.$router.push("/login");
+            // 清空地址栏多余参数
+            this.$router.push('/login')
+            window.location.reload()
             setTimeout(() => {
               this.$message.success("退出成功！记得回来哟~");
             }, 300);
+
           })
           .catch(() => { });
       } else if (path) {
