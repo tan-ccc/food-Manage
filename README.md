@@ -36,7 +36,7 @@
 + 普通用户：test 123456 [前往体验](http://lyt-top.gitee.io/vue-admin-wonderful-preview/#/login)
 
 #### 代码仓库
-+ pro 版本 <a href="https://gitee.com/lyt-top/vue-admin-wonderful" target="_blank">http://lyt-top.gitee.io/vue-admin-wonderful</a>
++ pro 版本 <a href="https://gitee.com/lyt-top/vue-admin-wonderful" target="_blank">https://gitee.com/lyt-top/vue-admin-wonderful</a>
 
 #### 安装 cnpm
 + 复制代码(桌面cmd运行) `npm install -g cnpm --registry=https://registry.npm.taobao.org`
