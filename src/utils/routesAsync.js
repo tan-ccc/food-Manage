@@ -19,7 +19,7 @@ export function adminUser() {
     getMenuAdmin().then(res => {
         resetRouter()
         store.commit('setMenuData', res.data)
-        router.addRoutes([dynamicRouter(res.data)])
+        router.addRoutes([dynamicRouter(res.data), { path: '*', redirect: '/404' }])
     }).catch(() => { })
 }
 
