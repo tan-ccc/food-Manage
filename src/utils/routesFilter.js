@@ -1,5 +1,4 @@
-import store from '../store'
-import { dynamicRouter } from '@/utils/routesAsync'
+import store from '@/store'
 
 // 递归过滤 `hidden` 为 false 的组件
 export function filterMenu(arr) {
@@ -13,5 +12,8 @@ export function filterMenu(arr) {
         });
 }
 
+
 // 导出过滤后的菜单
-export const routesFilter = filterMenu(dynamicRouter(store.state.menuData).children);
+export function routesFilter() {
+    return filterMenu(store.state.menuData.children)
+}

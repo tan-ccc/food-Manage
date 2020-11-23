@@ -31,6 +31,7 @@ import { getSession, clearSession } from "@/utils/storage";
 import { dropdownList } from "@/mock/dropdownList";
 import DropdownDrawer from "@/components/navBars/dropdown/dropdownDrawer";
 import DropdownNews from "@/components/navBars/dropdown/dropdownNews";
+import { resetRouter } from '@/router'
 export default {
   name: "dropdown",
   components: { DropdownDrawer, DropdownNews },
@@ -107,9 +108,9 @@ export default {
         })
           .then((action) => {
             clearSession();
-            // 清空地址栏多余参数
+            this.$store.commit('setMenuData', {})
+            resetRouter()  // 重置路由
             this.$router.push('/login')
-            window.location.reload()
             setTimeout(() => {
               this.$message.success("退出成功！记得回来哟~");
             }, 300);

@@ -21,7 +21,7 @@ export default {
   name: "strangSplitMent",
   data() {
     return {
-      menuList: routesFilter,
+      menuList: routesFilter(),
     };
   },
   created() {
@@ -38,7 +38,7 @@ export default {
   methods: {
     // 数据初始化
     initMenu() {
-      routesFilter.map((item) => {
+      routesFilter().map((item) => {
         if (this.$route.meta.parent === item.meta.parent) {
           this.strangSplitMentData(item);
         }
@@ -73,7 +73,7 @@ export default {
 <style scoped lang="scss">
 .strang-split-ment {
   width: 65px;
-  background-color: #29384D;
+  background-color: #29384d;
   .strang-split-ment-scrollbar {
     height: 100%;
     ul {

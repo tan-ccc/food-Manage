@@ -111,10 +111,10 @@ export default {
     // 初始化设置了 `affix: true` 和当前路由（防止刷新时丢失） 固定项数据(router -> routes.js)
     initTagsList() {
       let arr = [];
-      this.filterCurrentMenu(routesFilter, this.$route.path, res => {
+      this.filterCurrentMenu(routesFilter(), this.$route.path, res => {
         arr.push(res);
       })
-      this.tagsList = this.duplicate([...this.filterMenu(routesFilter), ...arr]);
+      this.tagsList = this.duplicate([...this.filterMenu(routesFilter()), ...arr]);
       // 防止菜单设置了 `hidden: true` 时，刷新页面，`tagsView` 丢失高亮问题
       let flag = this.tagsList.filter(v => v.path === this.$route.path).length <= 0 ? true : false;
       if (flag) this.$router.push('/home');
@@ -175,10 +175,10 @@ export default {
     // 右键菜单 `关闭其他` 功能
     closeOtherTags(res) {
       let arr = []
-      this.filterCurrentMenu(routesFilter, res.path, res => {
+      this.filterCurrentMenu(routesFilter(), res.path, res => {
         arr.push(res)
       })
-      this.tagsList = this.duplicate([...this.filterMenu(routesFilter), ...arr])
+      this.tagsList = this.duplicate([...this.filterMenu(routesFilter()), ...arr])
       this.routerPush(res.path);
     },
     // 右键菜单 `全部关闭` 功能 

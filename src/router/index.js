@@ -16,7 +16,12 @@ VueRouter.prototype.push = function push(location) {
 Vue.use(VueRouter)
 
 // 加载静态路由
-const router = new VueRouter({ routes: staticRoutes })
+const createRouter = () => new VueRouter({
+  scrollBehavior: () => ({ y: 0 }),
+  routes: staticRoutes
+})
+const router = createRouter()
+
 
 // 路由加载前
 router.beforeEach((to, from, next) => {
@@ -49,6 +54,11 @@ router.afterEach(() => {
   NProgress.configure({ showSpinner: false })
   NProgress.done()
 })
+
+// 重置路由
+export function resetRouter() {
+  router.matcher = createRouter().matcher
+}
 
 // 导出路由
 export default router

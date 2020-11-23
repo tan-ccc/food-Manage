@@ -20,6 +20,7 @@
 
 <script>
 import { clearSession } from "@/utils/storage";
+import { resetRouter } from '@/router'
 export default {
   name: "noAuth",
   data() {
@@ -31,9 +32,9 @@ export default {
     // 重新授权
     onSetAuth() {
       clearSession();
-      // 清空地址栏多余参数
+      this.$store.commit('setMenuData', {})
+      resetRouter() // 重置路由
       this.$router.push('/login')
-      window.location.reload()
     },
   },
 };

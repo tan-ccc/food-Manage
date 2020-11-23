@@ -18,7 +18,7 @@ export default {
   name: "classicSplitMenu",
   data() {
     return {
-      menuList: routesFilter,
+      menuList: routesFilter(),
     };
   },
   created() {

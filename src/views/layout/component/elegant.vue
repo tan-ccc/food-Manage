@@ -41,7 +41,7 @@ export default {
         label: "title",
         index: "path",
       },
-      menuList: routesFilter,
+      menuList: routesFilter(),
       backtop: null
     };
   },

@@ -52,7 +52,7 @@ export default {
     this.bus.$on("sendClassicSplitMenuData", (menuData) => {
       this.menuList = [];
       if (menuData === null) {
-        this.setTimeoutMenuData(routesFilter);
+        this.setTimeoutMenuData(routesFilter());
       } else {
         this.setTimeoutMenuData(menuData);
       }
@@ -82,7 +82,7 @@ export default {
     // 未开启 `自动菜单分割`，直接使用路由数据
     initMenu() {
       if (!this.$store.state.layoutConfig.isSplitMenu) {
-        this.menuList = routesFilter;
+        this.menuList = routesFilter();
       }
     },
     // 左侧菜单点击事件

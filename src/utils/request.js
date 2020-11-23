@@ -1,4 +1,5 @@
-import router from "@/router/index";
+import store from '@/store'
+import router, { resetRouter } from "@/router/index";
 import axios from "axios";
 import { Message, MessageBox } from "element-ui";
 import { clearSession, getSession } from "@/utils/storage";
@@ -39,9 +40,9 @@ service.interceptors.response.use(
 					title: "提示",
 					message: '你已被登出，请重新登录'
 				}).then(() => {
-					// 清空地址栏多余参数
+					store.commit('setMenuData', {})
+					resetRouter() // 重置路由
 					this.$router.push('/login')
-					window.location.reload()
 				});
 			}
 			return Promise.reject(service.interceptors.response.error);
