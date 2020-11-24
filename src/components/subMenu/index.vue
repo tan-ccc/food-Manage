@@ -9,7 +9,7 @@
           <i :class="val.meta.icon"></i>
           <span>{{ val[props.label] }}</span>
         </template>
-        <SubItem :chil="val[props.children]" :props="props" @getSubItem="onMenuItemClick" />
+        <SubItem :chil="val[props.children]" :props="props" @getSubItem="onMenuItemClick" class="child-menu" />
       </el-submenu>
       <el-menu-item :index="val[props.index]" v-else @click="onMenuItemClick(val)" :key="key">
         <i :class="val.meta.icon"></i>
