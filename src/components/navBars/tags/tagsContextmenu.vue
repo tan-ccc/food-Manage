@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: "tags-contextmenu",
+  name: "tagsContextmenu",
   props: {
     dropdown: {
       type: Object,

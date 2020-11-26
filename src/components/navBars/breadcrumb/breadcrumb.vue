@@ -27,6 +27,7 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import { setSession } from "@/utils/storage";
+import { dynamicRouter } from "@/utils/routesAsync";
 import SubMenuSplitClassic from "@/components/navBars/subMenuSplit/subMenuSplitClassic";
 export default {
   name: "breadcrumb",
@@ -35,6 +36,7 @@ export default {
     return {
       levelList: null,
       layouts: {},
+      deptIdList: []
     };
   },
   computed: {
@@ -58,12 +60,34 @@ export default {
         (this.layouts.isBreadcrumb && this.layouts.layout === "strange")
       );
     },
+    // !! 前 ! 转换成布尔型。递归获取当前子节点的所有父节点
+    lookupCurrentRoute(arr, path) {
+      let menuArr = [];
+      if (arr.length == 0) {
+        if (!!path) menuArr.unshift(arr)
+        return menuArr;
+      }
+      let fun = (data, nodeId) => {
+        for (var i = 0, length = data.length; i < length; i++) {
+          let node = data[i]
+          if (node.path == nodeId) {
+            menuArr.unshift(node)
+            fun(arr, node.parentPath)
+            break
+          }
+          else {
+            if (!!node.children) fun(node.children, nodeId)
+          }
+        }
+        return menuArr;
+      };
+      menuArr = fun(arr, path);
+      return menuArr;
+    },
     // 顶部 `breadcrumb 面包屑` 数组获取
-    getBreadcrumb() {
-      let matched = this.$route.matched.filter(
-        (item) => item.meta && item.meta.title
-      );
-      this.levelList = matched.filter((item) => item.meta && item.meta.title);
+    getBreadcrumb(path) {
+      let originalMenuData = dynamicRouter(this.$store.state.originalMenuData)
+      this.levelList = this.lookupCurrentRoute(originalMenuData.children, path);
     },
     // 顶部 `breadcrumb 面包屑` 点击
     onHandleLink(item) {
@@ -78,8 +102,8 @@ export default {
   watch: {
     // 监听路由变化，改变顶部 `breadcrumb 面包屑` 数组内容
     $route: {
-      handler() {
-        this.getBreadcrumb();
+      handler(to) {
+        this.getBreadcrumb(to.path);
       },
       immediate: true,
       deep: true,

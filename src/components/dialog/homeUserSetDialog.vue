@@ -44,7 +44,7 @@
 
 <script>
 export default {
-  name: "",
+  name: "homeUserSetDialog",
   data() {
     return {
       ruleForm: {

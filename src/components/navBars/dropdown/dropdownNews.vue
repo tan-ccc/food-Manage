@@ -11,7 +11,7 @@
             <div class="content-box-item" v-for="v in 1" :key="v">
               <div>关于版本发布的通知</div>
               <div class="content-box-msg">
-                vue-admin-wonderful， 一套为开发者快速开发准备的基于 vue2.x、 element ui 2.14.0 越看越精彩的后台管理系统一站式平台模板。 此次发布了5个模板：分为1个 pro
+                vue-admin-wonderful， 一套为开发者快速开发准备的基于 vue2.x、 element ui 2.14.1 越看越精彩的后台管理系统一站式平台模板。 此次发布了5个模板：分为1个 pro
                 版本（包含全部基础版本），4个基础版本。 可选择相对应的模板进行预览及下载，希望可以帮你完成快速开发。</div>
               <div class="content-box-time">2020-11-15</div>
             </div>

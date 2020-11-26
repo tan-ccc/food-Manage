@@ -8,7 +8,7 @@
 // https://github.com/PanJiaChen/vue-element-admin/blob/40431fdfc80f4f24abcef89181b3bc672ce114cf/src/layout/components/TagsView/ScrollPane.vue
 const tagAndTagSpacing = 4; // tagAndTagSpacing
 export default {
-  name: "ScrollPane",
+  name: "tagsScrollPane",
   data() {
     return {
       left: 0,

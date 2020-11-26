@@ -92,7 +92,7 @@ export function formatPast(param, format = "YYYY-mm-dd") {
   let t, s;
   // 获取js 时间戳
   let time = new Date().getTime();
-  // 是否是对象o
+  // 是否是对象
   typeof param === "string" || "object"
     ? (t = new Date(param).getTime())
     : (t = param);

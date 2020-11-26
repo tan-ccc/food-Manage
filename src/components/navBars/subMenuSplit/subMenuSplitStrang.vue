@@ -6,7 +6,7 @@
           @click="onMenuItemClick(val)">
           <i :class="val.meta.icon"></i>
           <div>
-            {{ val.title.length >= 4 ? val.title.substring(0, 2) : val.title }}
+            {{ val.title.length >= 3 ? val.title.substring(0, 2) : val.title }}
           </div>
         </li>
       </ul>
@@ -18,7 +18,7 @@
 import { mapState, mapActions } from "vuex";
 import { routesFilter } from "@/utils/routesFilter";
 export default {
-  name: "strangSplitMent",
+  name: "subMenuSplitStrang",
   data() {
     return {
       menuList: routesFilter(),

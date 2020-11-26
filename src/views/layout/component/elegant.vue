@@ -18,7 +18,9 @@
       <div class="elegant-bottom">
         <el-scrollbar class="elegant-scrollbar" ref="scrollbarRef">
           <transition name="fade-transform" mode="out-in">
-            <router-view class="elegant-view" :key="$route.path" />
+            <keep-alive :include="keepAliveList">
+              <router-view class="elegant-view" :key="$route.path" />
+            </keep-alive>
           </transition>
         </el-scrollbar>
       </div>
@@ -32,7 +34,7 @@ import { routesFilter } from "@/utils/routesFilter";
 import SubMenu from "@/components/subMenu";
 import NavBars from "@/components/navBars";
 export default {
-  name: "elegant",
+  name: "layoutElegant",
   components: { SubMenu, NavBars },
   data() {
     return {
@@ -44,6 +46,12 @@ export default {
       menuList: routesFilter(),
       backtop: null
     };
+  },
+  computed: {
+    // 获取缓存路由数据
+    keepAliveList() {
+      return this.$store.state.keepAliveList
+    }
   },
   mounted() {
     this.initBacktop()

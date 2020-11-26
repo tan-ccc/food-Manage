@@ -34,7 +34,10 @@
                 $store.state.layoutConfig.isCollapse && isFixedHead(),
             }" />
           <transition name="fade-transform" mode="out-in">
-            <router-view :key="key" class="fashion-warp-right-view" :class="isFixedHeadAndIsShowTagsView" />
+            <keep-alive :include="keepAliveList">
+              <router-view class="fashion-warp-right-view" :class="isFixedHeadAndIsShowTagsView" :key="key"
+                v-if="isShowView" />
+            </keep-alive>
           </transition>
         </el-scrollbar>
       </div>
@@ -59,7 +62,8 @@ export default {
       },
       menuList: routesFilter(),
       key: "",
-      backtop: null
+      backtop: null,
+      isShowView: true
     };
   },
   computed: {
@@ -74,12 +78,18 @@ export default {
         }
       }
     },
+    // 获取缓存路由数据
+    keepAliveList() {
+      return this.$store.state.keepAliveList
+    }
   },
   created() {
     // 监听 `Tags-View` 右键菜单刷新功能
     this.bus.$on("refreshCurrentPage", (path) => {
       this.key = new Date().getTime();
       this.$router.push(path);
+      this.isShowView = false;
+      setTimeout(() => { this.isShowView = true }, 500);
     });
   },
   destroyed() {
@@ -112,5 +122,14 @@ export default {
       }
     },
   },
+  watch: {
+    $route: {
+      handler(to) {
+        this.key = to.path
+      },
+      immediate: true,
+      deep: true,
+    },
+  }
 };
 </script>

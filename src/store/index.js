@@ -8,7 +8,7 @@ export default new Vuex.Store({
     /**
      * 2020/8/22 17:20 全局布局配置
      * 注意：其它属性布局为 `fashion` 才生效，
-     * 此配置不可删除，否是页面可能出现未知异常。
+     * 此配置不可删除，否则页面可能出现未知异常。
      */
     layoutConfig: {
       isBreadcrumb: true, // 是否开启 Breadcrumb
@@ -24,7 +24,10 @@ export default new Vuex.Store({
       subMenuTheme: 'dark', // 菜单主题颜色 1、 dark 暗色  2、 light 亮色
       isSplitMenu: false, // 自动菜单分割(仅 classic 经典布局生效)
     },
-    menuData: {} // 后端返回动态路由
+    menuData: {}, // 后端返回动态路由
+    originalMenuData: {}, // 后端返回未处理过的动态路由, `breadcrumb 面包屑中使用`
+    // 路由缓存数据，字符串为组件中的 `name` 值，想要缓存嵌套路由，得先在当前组件中定义 `name` 值
+    keepAliveList: ['home', 'docs', 'menu2', 'menu11', 'menu122', 'basicForm']
   },
   mutations: {
     // 触发 layoutConfig 配置更新
@@ -34,7 +37,8 @@ export default new Vuex.Store({
     // 后端返回动态路由
     setMenuData(state, res) {
       state.menuData = res
-    }
+      state.originalMenuData = JSON.parse(JSON.stringify(res))
+    },
   },
   actions: {
     // 触发 layoutConfig 配置更新

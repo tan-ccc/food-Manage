@@ -1,7 +1,9 @@
 <template>
   <div>
     <transition name="fade-transform" mode="out-in">
-      <router-view :key="key" />
+      <keep-alive :include="keepAliveList">
+        <router-view :key="key" />
+      </keep-alive>
     </transition>
   </div>
 </template>
@@ -11,7 +13,7 @@ export default {
   name: "publics",
   data() {
     return {
-      key: "",
+      key: ""
     };
   },
   created() {
@@ -19,5 +21,20 @@ export default {
       this.key = new Date().getTime();
     });
   },
+  computed: {
+    // 获取缓存路由数据
+    keepAliveList() {
+      return this.$store.state.keepAliveList
+    }
+  },
+  watch: {
+    $route: {
+      handler(to) {
+        this.key = to.path
+      },
+      immediate: true,
+      deep: true,
+    },
+  }
 };
 </script>

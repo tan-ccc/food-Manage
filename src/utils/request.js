@@ -36,14 +36,12 @@ service.interceptors.response.use(
 				// 清除浏览器全部临时缓存
 				clearSession();
 				router.push("/login");
+				store.commit('setMenuData', {})
+				resetRouter() // 重置路由
 				MessageBox.alert({
 					title: "提示",
 					message: '你已被登出，请重新登录'
-				}).then(() => {
-					store.commit('setMenuData', {})
-					resetRouter() // 重置路由
-					this.$router.push('/login')
-				});
+				}).then(() => { }).catch(() => { });
 			}
 			return Promise.reject(service.interceptors.response.error);
 		} else {

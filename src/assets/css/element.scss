@@ -57,8 +57,8 @@
 .el-menu--horizontal .el-menu-item,
 .el-menu--horizontal .el-submenu,
 .el-menu--horizontal .el-submenu .el-submenu__title {
-  height: 49.5px !important;
-  line-height: 49.5px !important;
+  height: 49px !important;
+  line-height: 49px !important;
 }
 .el-menu--horizontal .el-menu--popup .el-menu-item,
 .el-menu--horizontal .el-menu--popup .el-submenu,
@@ -170,4 +170,12 @@
 .el-table--group::after,
 .el-table--border::after {
   z-index: 99 !important;
+}
+.el-menu-item .iconfont {
+  margin-right: 5px;
+  width: 24px;
+  text-align: center;
+  font-size: 18px;
+  vertical-align: middle;
+  display: inline-block;
 }

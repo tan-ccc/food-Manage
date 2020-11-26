@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  name: 'user-role',
+  name: 'userRole',
   data() {
     return {
       props: {
@@ -115,7 +115,7 @@ export default {
   overflow: hidden;
   color: #303133;
   transition: 0.3s;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.03) !important;
   padding: 15px;
   display: flex;
   .user-role-warp-left {

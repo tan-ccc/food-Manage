@@ -93,28 +93,26 @@ export default {
         this.inputFocus(0);
       } else {
         callback();
+        this.inputFocus(1);
       }
     };
     // 密码验证
     const validatePassword = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入密码"));
-        this.inputFocus(1);
       } else if (value !== "123456") {
         callback(new Error("密码输入错误"));
-        this.inputFocus(1);
       } else {
         callback();
+        this.inputFocus(2);
       }
     };
     // 验证码验证
     const validateCode = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入验证码"));
-        this.inputFocus(2);
       } else if (value !== this.loginCode) {
         callback(new Error("验证码输入错误"));
-        this.inputFocus(2);
       } else {
         callback();
       }

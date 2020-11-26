@@ -15,7 +15,7 @@
 <script>
 import { routesFilter } from "@/utils/routesFilter";
 export default {
-  name: "classicSplitMenu",
+  name: "subMenuSplitClassic",
   data() {
     return {
       menuList: routesFilter(),
@@ -27,7 +27,7 @@ export default {
   methods: {
     // 数据初始化
     initMenu() {
-      menuList.map((item) => {
+      routesFilter().map((item) => {
         if (this.$route.meta.parent === item.meta.parent) {
           this.sendClassicSplitMenuData(item);
         }

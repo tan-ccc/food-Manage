@@ -69,7 +69,6 @@ export default {
     }
   },
   methods: {
-
     // 打开链接
     onOpenPage(v) {
       window.open(v.src);

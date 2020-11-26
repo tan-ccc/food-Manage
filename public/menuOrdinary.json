@@ -51,6 +51,7 @@
           {
             "path": "/demo/filtering",
             "component": "demo/filtering/index",
+            "parentPath": "/demo",
             "meta": {
               "parent": "/demo",
               "icon": "el-icon-s-marketing",
@@ -60,6 +61,7 @@
           {
             "path": "/demo/filtering-details",
             "component": "demo/filtering/component/details",
+            "parentPath": "/demo",
             "meta": {
               "parent": "/demo",
               "icon": "el-icon-s-marketing",
@@ -70,6 +72,7 @@
           {
             "path": "/demo/v-charts",
             "component": "demo/vCharts/index",
+            "parentPath": "/demo",
             "meta": {
               "parent": "/demo",
               "icon": "el-icon-data-analysis",
@@ -78,6 +81,7 @@
           },
           {
             "path": "externalLinkUrl",
+            "parentPath": "/demo",
             "meta": {
               "title": "大数据可视化",
               "icon": "el-icon-s-data",
@@ -88,6 +92,7 @@
           {
             "path": "/demo/tVSwitch",
             "component": "demo/tVSwitch/index",
+            "parentPath": "/demo",
             "meta": {
               "parent": "/demo",
               "icon": "el-icon-s-platform",
@@ -97,6 +102,7 @@
           {
             "path": "/demo/mavonEditor",
             "component": "demo/mavonEditor/index",
+            "parentPath": "/demo",
             "meta": {
               "parent": "/demo",
               "icon": "el-icon-edit-outline",
@@ -106,6 +112,7 @@
           {
             "path": "/demo/waterfall",
             "component": "demo/waterfall/index",
+            "parentPath": "/demo",
             "meta": {
               "parent": "/demo",
               "icon": "el-icon-reading",
@@ -115,6 +122,7 @@
           {
             "path": "/demo/comment",
             "component": "demo/comment/index",
+            "parentPath": "/demo",
             "meta": {
               "parent": "/demo",
               "icon": "el-icon-chat-line-square",
@@ -124,7 +132,9 @@
           {
             "path": "/demo/treeControl",
             "component": "demo/treeControl/index",
+            "parentPath": "/demo",
             "meta": {
+            "parentPath": "/demo",
               "parent": "/demo",
               "icon": "el-icon-finished",
               "title": "Tree 树形控件"
@@ -133,6 +143,7 @@
           {
             "path": "/demo/tianditu",
             "component": "demo/tianditu/index",
+            "parentPath": "/demo",
             "meta": {
               "parent": "/demo",
               "icon": "el-icon-location-information",
@@ -142,6 +153,7 @@
           {
             "path": "/demo/table",
             "component": "demo/table/index",
+            "parentPath": "/demo",
             "meta": {
               "parent": "/demo",
               "icon": "el-icon-tickets",

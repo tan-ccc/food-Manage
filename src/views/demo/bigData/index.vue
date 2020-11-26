@@ -88,7 +88,7 @@
             <div class="flex-title">近30天预警总数</div>
             <div class="flex-content" ref="rightChartData1">
               <ve-pie :height="echarts.rightChartData1" :data="chartData1" :settings="{roseType: 'radius',radius: 60}"
-                :extend="{series: {center: ['50%', '50%']},legend: {show: false}}"></ve-pie>
+                :extend="{series: {type: 'pie',center: ['50%', '50%']},legend: {show: false}}"></ve-pie>
             </div>
           </div>
         </div>
@@ -128,7 +128,7 @@
                 <ve-line :height="echarts.rightChartData4" :data="chartData4"
                   :settings="{areaStyle: {color: {type: 'linear',x: 0,y: 0, x2: 0,y2: 1,
                   colorStops: [{offset: 0,color: 'rgba(52,153,245,0.5)'},{offset: 1,color: 'rgba(52,153,245,0.1)'}],global: false}}}" :extend="{legend: {show: false},
-                  series: {barWidth: 20,smooth: 0,itemStyle: {normal: {label: {show: false},lineStyle: {width: 1,color: '#43bdf0'}}}},
+                  series: {type: 'line',barWidth: 20,smooth: 0,itemStyle: {normal: {label: {show: false},lineStyle: {width: 1,color: '#43bdf0'}}}},
                   yAxis: {axisLabel: {color: '#c0d1f2'},splitLine: {lineStyle: {type:'dotted',color: ['#09445e']}}},
                   xAxis: {axisLabel: {color: '#c0d1f2'}},
                   grid: {top: 15,bottom: 0}}"></ve-line>
@@ -148,7 +148,7 @@
             </div>
             <div class="flex-content" ref="rightChartData3">
               <ve-line :height="echarts.rightChartData3" :data="chartData3" :extend="{legend: {show: false},
-                series: {barWidth: 20},
+                series: {type: 'line',barWidth: 20},
                 yAxis: {axisLabel: {color: '#c0d1f2'},splitLine: {lineStyle: {type:'dotted',color: ['#09445e']}}},
                 xAxis: {axisLabel: {color: '#c0d1f2'}},
                 grid: {top: 15,bottom: 0}}"></ve-line>
@@ -228,7 +228,7 @@
               <ve-histogram :height="echarts.rightChartData2" :data="chartData2"
                 :settings="{itemStyle: {color: {type: 'linear',x: 0,y: 0, x2: 0,y2: 1,
                 colorStops: [{offset: 0,color: 'rgba(52,153,245,1)'},{offset: 1,color: 'rgba(52,153,245,0.1)'}],global: false}}}" :extend="{legend: {show: false},
-                series: {barWidth: 20},
+                series: {type: 'bar',barWidth: 20},
                 yAxis: {axisLabel: {color: '#c0d1f2'},splitLine: {lineStyle: {color: ['#09445e']}}},
                 xAxis: {axisLabel: {color: '#c0d1f2'}},
                 grid: {top: 15,bottom: 0},
