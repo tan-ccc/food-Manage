@@ -136,7 +136,7 @@
     </div>
 
     <!-- 复制配置 -->
-    <div class="copy-config" v-if="isDev()">
+    <div class="copy-config">
       <el-alert title="点击下方按钮，复制布局配置。路径：src/store/index.js" type="warning" :closable="false">
       </el-alert>
       <el-button size="small" class="copy-config-btn" icon="el-icon-document-copy" @click="onCopyConfig">一键复制配置
@@ -165,9 +165,9 @@ export default {
   },
   methods: {
     ...mapActions(["setLayoutConfig"]),
-    isDev() {
-      return process.env.NODE_ENV === "development" ? true : false
-    },
+    // isDev() {
+    //   return process.env.NODE_ENV === "development" ? true : false
+    // },
     isFashionOrStrange() {
       return (
         this.layouts.layout === "fashion" || this.layouts.layout === "strange"

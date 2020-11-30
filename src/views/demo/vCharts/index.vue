@@ -1,8 +1,8 @@
 <template>
   <div class="v-charts-warp" :style="styleHeight">
     <ve-line :data="chartData" :data-zoom="dataZoom" height="100%" :colors="['#19D4AE','#5AB1EF']"
-      :loading="chartConfig.loading" :data-empty="chartConfig.dataEmpty" :mark-point="markPoint"
-      :settings="chartSettings" :extend="chartSettings" :toolbox="toolbox">
+      :loading="chartConfig.loading" :data-empty="chartConfig.dataEmpty" :mark-point="markPoint" :extend="chartSettings"
+      :toolbox="toolbox">
     </ve-line>
   </div>
 </template>
@@ -20,9 +20,6 @@ export default {
         magicType: { type: ['line', 'bar'] },
         saveAsImage: {}
       }
-    }
-    this.chartSettings = {
-      yAxisName: ['价格'],
     }
     this.chartSettings = {
       yAxisName: ['价格'],
@@ -128,6 +125,6 @@ export default {
   color: #303133;
   transition: 0.3s;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.03) !important;
-  padding: 15px;
+  margin: 15px;
 }
 </style>

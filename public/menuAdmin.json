@@ -334,6 +334,15 @@
         ]
       },
       {
+        "path": "/tools",
+        "component": "tools",
+        "meta": {
+          "parent": "/tools",
+          "icon": "el-icon-setting",
+          "title": "工具类集合"
+        }
+      },
+      {
         "path": "externalLinkUrl",
         "meta": {
           "title": "外链",

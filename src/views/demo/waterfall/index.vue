@@ -54,16 +54,16 @@ export default {
       if (layout === 'fashion' || layout === 'strange') {
         if (isTagsView) {
           return {
-            height: `calc(100vh - 114px)`
+            height: `calc(100vh - 84px)`
           }
         } else {
           return {
-            height: `calc(100vh - 80px)`
+            height: `calc(100vh - 50px)`
           }
         }
       } else {
         return {
-          height: `calc(100vh - 80px)`
+          height: `calc(100vh - 50px)`
         }
       }
     }
@@ -190,7 +190,6 @@ export default {
   width: 100%;
   overflow: hidden;
   position: relative;
-  border: 1px solid #ebeef5;
   .waterfall-box {
     width: 100%;
     height: 100%;
@@ -198,6 +197,8 @@ export default {
     overflow-y: auto;
     overflow-x: hidden;
     list-style: none;
+    border: 1px solid #ebeef5;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.03) !important;
     .waterfall-li-enter-active,
     .waterfall-li-leave-active {
       transition: all 1s;

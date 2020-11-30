@@ -13,7 +13,8 @@
             </div>
             <div class="user-item-right">
               <el-row>
-                <el-col :span="24" class="right-title mb15">{{currentTime}}，{{userInfo.userName}}，祝你开心每一天！</el-col>
+                <el-col :span="24" class="right-title mb15">{{currentTime}}，{{userInfo.userName}}，{{dailyMessage}}
+                </el-col>
                 <el-col :span="24">
                   <el-col :span="8" class="right-l-v">
                     <div class="right-label">昵称：</div>
@@ -108,7 +109,8 @@
               <ve-ring :data="chartData4" :settings="chartSettings4" height="310px"></ve-ring>
             </div>
             <div class="charts-right ml7">
-              <ve-bar :data="chartData5" :settings="chartSettings5" height="310px"></ve-bar>
+              <ve-bar :data="chartData5" :settings="chartSettings5" height="310px" :extend="{grid: {right: 20}}">
+              </ve-bar>
             </div>
           </div>
         </el-card>
@@ -162,7 +164,7 @@
 import { getSession } from '@/utils/storage'
 import { dragDialog } from "@/utils/directive";
 import { formatAxis, formatDate } from "@/utils/formatTime";
-import { recommendList, chartsRightList, newsInfoList } from "@/mock/home";
+import { recommendList, chartsRightList, newsInfoList, dailyMessage } from "@/mock/home";
 import Scroll from "vue-seamless-scroll";
 import HomeUserSetDialog from "@/components/dialog/homeUserSetDialog";
 export default {
@@ -256,13 +258,15 @@ export default {
       charts: {
         time: "",
       },
-      userInfo: {}
+      userInfo: {},
+      dailyMessage: {}
     };
   },
   created() {
     dragDialog();
     this.getChartData1();
-    this.initUserInfo()
+    this.initUserInfo();
+    this.initDailyMessage();
   },
   computed: {
     currentTime() {
@@ -277,6 +281,10 @@ export default {
     },
   },
   methods: {
+    // 随机语录
+    initDailyMessage() {
+      this.dailyMessage = dailyMessage[Math.floor(Math.random() * dailyMessage.length)]
+    },
     // 初始化登录信息
     initUserInfo() {
       if (!getSession('userInfo')) return false

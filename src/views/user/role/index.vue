@@ -1,21 +1,23 @@
 <template>
   <div class="user-role-warp" :style="styleHeight">
-    <div class="user-role-warp-left">
-      <el-scrollbar style="height:100%;">
-        <el-tree :props="props" :load="loadNode" lazy>
-        </el-tree>
-      </el-scrollbar>
-    </div>
-    <div class="user-role-warp-right">
-      <el-table :data="tableData.data" border>
-        <el-table-column prop="date" label="parent"></el-table-column>
-        <el-table-column prop="date" label="icon"></el-table-column>
-        <el-table-column prop="name" label="title"></el-table-column>
-        <el-table-column prop="address" label="affix"></el-table-column>
-        <el-table-column prop="address" label="hidden"></el-table-column>
-        <el-table-column prop="address" label="isExternalLinks"></el-table-column>
-        <el-table-column prop="address" label="externalLinkUrl"></el-table-column>
-      </el-table>
+    <div class="user-role-warp-box">
+      <div class="user-role-warp-left">
+        <el-scrollbar style="height:100%;">
+          <el-tree :props="props" :load="loadNode" lazy>
+          </el-tree>
+        </el-scrollbar>
+      </div>
+      <div class="user-role-warp-right">
+        <el-table :data="tableData.data" border>
+          <el-table-column prop="date" label="parent"></el-table-column>
+          <el-table-column prop="date" label="icon"></el-table-column>
+          <el-table-column prop="name" label="title"></el-table-column>
+          <el-table-column prop="address" label="affix"></el-table-column>
+          <el-table-column prop="address" label="hidden"></el-table-column>
+          <el-table-column prop="address" label="isExternalLinks"></el-table-column>
+          <el-table-column prop="address" label="externalLinkUrl"></el-table-column>
+        </el-table>
+      </div>
     </div>
   </div>
 </template>
@@ -58,16 +60,16 @@ export default {
       if (layout === 'fashion' || layout === 'strange') {
         if (isTagsView) {
           return {
-            height: `calc(100vh - 114px)`
+            height: `calc(100vh - 84px)`
           }
         } else {
           return {
-            height: `calc(100vh - 80px)`
+            height: `calc(100vh - 50px)`
           }
         }
       } else {
         return {
-          height: `calc(100vh - 80px)`
+          height: `calc(100vh - 50px)`
         }
       }
     }
@@ -110,20 +112,23 @@ export default {
 <style scoped lang="scss">
 .user-role-warp {
   border-radius: 0px;
-  border: 1px solid #ebeef5;
-  background-color: #fff;
   overflow: hidden;
   color: #303133;
   transition: 0.3s;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.03) !important;
-  padding: 15px;
-  display: flex;
-  .user-role-warp-left {
-    width: 210px;
-  }
-  .user-role-warp-right {
-    flex: 1;
-    padding-left: 15px;
+  .user-role-warp-box {
+    padding: 15px;
+    height: 100%;
+    display: flex;
+    border: 1px solid #ebeef5;
+    background-color: #fff;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.03) !important;
+    .user-role-warp-left {
+      width: 210px;
+    }
+    .user-role-warp-right {
+      flex: 1;
+      padding-left: 15px;
+    }
   }
 }
 </style>

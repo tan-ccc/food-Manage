@@ -75,16 +75,16 @@ export default {
       if (layout === 'fashion' || layout === 'strange') {
         if (isTagsView) {
           return {
-            height: `calc(100vh - 114px)`
+            height: `calc(100vh - 84px)`
           }
         } else {
           return {
-            height: `calc(100vh - 80px)`
+            height: `calc(100vh - 50px)`
           }
         }
       } else {
         return {
-          height: `calc(100vh - 80px)`
+          height: `calc(100vh - 50px)`
         }
       }
     }

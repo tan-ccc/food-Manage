@@ -1,6 +1,8 @@
 <template>
   <div class="tianditu-warp" :style="styleHeight">
-    <div id="tianditu"></div>
+    <div class="tianditu-warp-box">
+      <div id="tianditu"></div>
+    </div>
   </div>
 </template>
 
@@ -22,16 +24,16 @@ export default {
       if (layout === 'fashion' || layout === 'strange') {
         if (isTagsView) {
           return {
-            height: `calc(100vh - 114px)`
+            height: `calc(100vh - 84px)`
           }
         } else {
           return {
-            height: `calc(100vh - 80px)`
+            height: `calc(100vh - 50px)`
           }
         }
       } else {
         return {
-          height: `calc(100vh - 80px)`
+          height: `calc(100vh - 50px)`
         }
       }
     }
@@ -65,15 +67,18 @@ export default {
 <style scoped lang="scss">
 .tianditu-warp {
   border-radius: 0px;
-  border: 1px solid #ebeef5;
-  background-color: #fff;
   overflow: hidden;
   color: #303133;
   transition: 0.3s;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.03) !important;
-  #tianditu {
-    width: 100%;
+  .tianditu-warp-box {
     height: 100%;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.03) !important;
+    border: 1px solid #ebeef5;
+    background-color: #fff;
+    #tianditu {
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 </style>
