@@ -6,7 +6,7 @@
           <el-col :span="24">
             <el-form-item label="上级菜单" prop="superMenuDataId">
               <el-cascader :options="superMenuData"
-                :props="{ checkStrictly: true,expandTrigger: 'hover',value:'title',label:'title' }" clearable
+                :props="{ checkStrictly: true,expandTrigger: 'hover',value:'path',label:'title' }" clearable
                 placeholder="选择挂载到哪个根菜单下，不填默认创建最顶级菜单" style="width:100%;" v-model="ruleForm.superMenuDataId"
                 @change="onSuperMenuDataChange">
               </el-cascader>
