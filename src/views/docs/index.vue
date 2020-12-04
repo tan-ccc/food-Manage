@@ -33,7 +33,7 @@ export default {
         },
         {
           url:
-            "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1777986988,1364946555&fm=11&gp=0.jpg",
+            "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3194472908,169836920&fm=26&gp=0.jpg",
           title: "Vue 3.0.js",
           msg: "Vue 组合式 API 手册",
           bg: "#EE9723",

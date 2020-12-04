@@ -74,7 +74,7 @@
               <main class="el-main"></main>
             </section>
           </section>
-          <div class="layout-tips-warp" v-if="isFashion()">
+          <div :class="[isFashion()? 'layout-tips-warp-active':'layout-tips-warp']">
             <div class="layout-tips-box">
               <p class="layout-tips-txt">时尚</p>
             </div>
@@ -92,7 +92,7 @@
               </section>
             </section>
           </section>
-          <div class="layout-tips-warp" v-if="isClassic()">
+          <div :class="[isClassic()? 'layout-tips-warp-active':'layout-tips-warp']">
             <div class="layout-tips-box">
               <p class="layout-tips-txt">经典</p>
             </div>
@@ -109,7 +109,7 @@
               </section>
             </section>
           </section>
-          <div class="layout-tips-warp" v-if="isElegant()">
+          <div :class="[isElegant()? 'layout-tips-warp-active':'layout-tips-warp']">
             <div class="layout-tips-box">
               <p class="layout-tips-txt">典雅</p>
             </div>
@@ -126,7 +126,7 @@
               <main class="el-main"></main>
             </section>
           </section>
-          <div class="layout-tips-warp" v-if="isStrange()">
+          <div :class="[isStrange()? 'layout-tips-warp-active':'layout-tips-warp']">
             <div class="layout-tips-box">
               <p class="layout-tips-txt">怪异</p>
             </div>
@@ -278,19 +278,20 @@ export default {
       .drawer-layout-active {
         border: 1px solid #09f;
       }
-      .layout-tips-warp {
+      .layout-tips-warp,
+      .layout-tips-warp-active {
         position: absolute;
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
-        border: 1px solid #09f;
+        border: 1px solid #b3c0d1;
         border-radius: 100%;
         padding: 4px;
         .layout-tips-box {
           width: 30px;
           height: 30px;
           z-index: 9;
-          border: 1px solid #09f;
+          border: 1px solid #b3c0d1;
           border-radius: 100%;
           .layout-tips-txt {
             position: relative;
@@ -299,7 +300,7 @@ export default {
             line-height: 1;
             letter-spacing: 2px;
             white-space: nowrap;
-            color: #09f;
+            color: #b3c0d1;
             text-align: center;
             transform: rotate(30deg);
             left: -1px;
@@ -307,6 +308,16 @@ export default {
             width: 32px;
             height: 17px;
             line-height: 17px;
+          }
+        }
+      }
+      .layout-tips-warp-active {
+        border: 1px solid #09f !important;
+        .layout-tips-box {
+          border: 1px solid #09f !important;
+          .layout-tips-txt {
+            color: #09f !important;
+            background-color: #e9eef3 !important;
           }
         }
       }

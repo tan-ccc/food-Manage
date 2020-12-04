@@ -89,7 +89,8 @@ export default {
       this.key = new Date().getTime();
       this.$router.push(path);
       this.isShowView = false;
-      setTimeout(() => { this.isShowView = true }, 500);
+      // 与 `src/assets/css/transition.scss` 过渡动画时间保持一致
+      setTimeout(() => { this.isShowView = true }, 300);
     });
   },
   destroyed() {

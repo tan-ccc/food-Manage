@@ -1,5 +1,10 @@
 <template>
   <div class="navbar-right">
+    <el-autocomplete placeholder="菜单搜索：中文、路由" size="small" prefix-icon="el-icon-search" class="icon-search"
+      :fetch-suggestions="menuSearch" @blur="onMenuSearchBlur" ref="menuSearchRef" v-if="isShowSearch"
+      v-model="queryMenu" @select="onHandleSelect">
+    </el-autocomplete>
+    <i class="el-icon-search icon icon-search" title="菜单搜索" @click="onMenuSearch" v-if="!isShowSearch"></i>
     <i class="el-icon-setting icon" title="全局配置" @click="$refs.dropdownDrawer.openDrawer()"></i>
     <div @mouseenter="$refs.dropdownNews.open()" @mouseleave="$refs.dropdownNews.close()">
       <el-badge is-dot>
@@ -7,7 +12,7 @@
         <DropdownNews ref="dropdownNews" />
       </el-badge>
     </div>
-    <i :class="!isFullscreen?'el-icon-zoom-in':'el-icon-remove-outline'" @click="onScreenfull" class="icon mr10"
+    <i :class="!isFullscreen?'el-icon-full-screen':'el-icon-remove-outline'" @click="onScreenfull" class="icon mr10"
       :title="!isFullscreen?'开全屏':'关全屏'"></i>
     <el-dropdown :show-timeout="70" :hide-timeout="50" @command="onDropdownCommand">
       <span class="el-dropdown-link">
@@ -17,7 +22,8 @@
         <i class="el-icon-arrow-down el-icon--right"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item :command="v" :divided="v.type === 'signUp'" v-for="(v,k) in dropdownList" :key="k">{{v.label}}
+        <el-dropdown-item :command="v" :divided="v.type === 'signUp'" v-for="(v,k) in dropdownList" :key="k">
+          {{v.label}}
         </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
@@ -39,21 +45,73 @@ export default {
     return {
       dropdownList,
       isFullscreen: false,
-      userInfo: {}
+      userInfo: {},
+      isShowSearch: false,
+      primeMenuData: [],
+      newPrimeMenuData: [],
+      queryMenu: ''
     };
   },
   mounted() {
-    this.initUserInfo()
+    this.initPrimeMenuData();
+    this.initUserInfo();
     this.initScreenfull();
   },
   destroyed() {
     this.destroyScreenfull();
   },
   methods: {
+    // 递归处理菜单数据
+    filterMenu(arr) {
+      return arr.map((item) => {
+        this.newPrimeMenuData.push({ ...item, value: item.meta.title })
+        item = Object.assign({}, item);
+        if (item.children) item.children = this.filterMenu(item.children)
+        return item;
+      });
+    },
+    // 初始化搜索菜单数据
+    initPrimeMenuData() {
+      this.filterMenu(this.$store.state.primeMenuData);
+      this.primeMenuData = this.newPrimeMenuData;
+    },
+    // 菜单搜索数据过滤
+    menuSearch(queryString, cb) {
+      let primeMenuData = this.primeMenuData;
+      let results = queryString ? primeMenuData.filter(this.createFilter(queryString)) : primeMenuData;
+      // 调用 callback 返回建议列表的数据
+      cb(results);
+    },
+    // 菜单搜索过滤
+    createFilter(queryString) {
+      return (restaurant) => {
+        return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) > -1 || restaurant.path.toLowerCase().indexOf(queryString.toLowerCase()) > -1);
+      };
+    },
+    // 菜单搜索当前项点击
+    onHandleSelect(item) {
+      this.$router.push(item.path);
+    },
+    // 菜单搜索icon点击
+    onMenuSearch() {
+      this.isShowSearch = true;
+      this.$nextTick(() => {
+        setTimeout(() => {
+          this.$refs.menuSearchRef.focus();
+        }, 100);
+      })
+    },
+    // 菜单搜索 input 隐藏
+    onMenuSearchBlur() {
+      setTimeout(() => {
+        this.isShowSearch = false;
+        this.queryMenu = "";
+      }, 100)
+    },
     // 初始化登录信息
     initUserInfo() {
-      if (!getSession('userInfo')) return false
-      this.userInfo = getSession('userInfo')
+      if (!getSession('userInfo')) return false;
+      this.userInfo = getSession('userInfo');
     },
     // 初始化全屏
     initScreenfull() {
@@ -105,18 +163,15 @@ export default {
               done();
             }
           },
-        })
-          .then((action) => {
-            clearSession();
-            this.$store.commit('setMenuData', {})
-            resetRouter()  // 重置路由
-            this.$router.push('/login')
-            setTimeout(() => {
-              this.$message.success("退出成功！记得回来哟~");
-            }, 300);
-
-          })
-          .catch(() => { });
+        }).then((action) => {
+          clearSession();
+          this.$store.commit('setMenuData', {});
+          resetRouter()  // 重置路由
+          this.$router.push('/login');
+          setTimeout(() => {
+            this.$message.success("退出成功！记得回来哟~");
+          }, 300);
+        }).catch(() => { });
       } else if (path) {
         this.$router.push(path);
       } else {
@@ -141,6 +196,20 @@ export default {
     line-height: 50px;
     &:hover {
       background: rgba(0, 0, 0, 0.04);
+    }
+  }
+  .icon-search {
+    animation: searchIconAnimation 0.3s ease-in-out;
+  }
+  @keyframes searchIconAnimation {
+    0% {
+      transform: scale(0);
+    }
+    80% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
     }
   }
   ::v-deep .is-dot {

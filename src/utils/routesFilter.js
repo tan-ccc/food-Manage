@@ -12,7 +12,6 @@ export function filterMenu(arr) {
         });
 }
 
-
 // 导出过滤后的菜单
 export function routesFilter() {
     return filterMenu(store.state.menuData.children)

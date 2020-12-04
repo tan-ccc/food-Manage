@@ -1,55 +1,82 @@
 <template>
   <div class="user-role-warp" :style="styleHeight">
-    <div class="user-role-warp-box">
-      <div class="user-role-warp-left">
-        <el-scrollbar style="height:100%;">
-          <el-tree :props="props" :load="loadNode" lazy>
-          </el-tree>
-        </el-scrollbar>
-      </div>
-      <div class="user-role-warp-right">
-        <el-table :data="tableData.data" border>
-          <el-table-column prop="date" label="parent"></el-table-column>
-          <el-table-column prop="date" label="icon"></el-table-column>
-          <el-table-column prop="name" label="title"></el-table-column>
-          <el-table-column prop="address" label="affix"></el-table-column>
-          <el-table-column prop="address" label="hidden"></el-table-column>
-          <el-table-column prop="address" label="isExternalLinks"></el-table-column>
-          <el-table-column prop="address" label="externalLinkUrl"></el-table-column>
-        </el-table>
-      </div>
+    <div class="user-role-warp-box" ref="userRoleWarpBoxRef">
+      <el-form :inline="true" :model="ruleForm" ref="ruleForm" size="small" style="height:51px;overflow:hidden;">
+        <el-form-item label="菜单名称">
+          <el-input v-model="ruleForm.user" placeholder="请输入菜单名称"></el-input>
+        </el-form-item>
+        <el-form-item label="菜单状态">
+          <el-select v-model="ruleForm.region" placeholder="菜单状态">
+            <el-option label="显示" value="shanghai"></el-option>
+            <el-option label="隐藏" value="beijing"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" icon="el-icon-search" @click="onSearch">查询</el-button>
+          <el-button type="info" icon="el-icon-refresh-left" @click="onReset">重置</el-button>
+          <el-button type="success" icon="el-icon-plus" @click="addMenu">新增菜单</el-button>
+        </el-form-item>
+      </el-form>
+      <el-table :data="tableData.data" border row-key="meta.title" :tree-props="{children: 'children'}"
+        :max-height="tableHeight" v-loading="tableData.loading">
+        <el-table-column prop="meta.title" label="菜单名称"></el-table-column>
+        <el-table-column prop="meta.icon" label="图标">
+          <template slot-scope="scope">
+            <i :class="scope.row.meta.icon"></i>
+          </template>
+        </el-table-column>
+        <el-table-column prop="componentPath" label="组件路径"></el-table-column>
+        <el-table-column prop="meta.hidden" label="菜单状态">
+          <template slot-scope="scope">
+            {{scope.row.meta.hidden ? '隐藏' : '显示'}}
+          </template>
+        </el-table-column>
+        <el-table-column prop="parentPath" label="上级路由"></el-table-column>
+        <el-table-column prop="meta.parent" label="顶级路由"></el-table-column>
+        <el-table-column prop="path" label="路由地址">
+          <template slot-scope="scope">
+            {{scope.row.redirect ? scope.row.redirect : scope.row.path}}
+          </template>
+        </el-table-column>
+        <el-table-column prop="meta.isExternalLinks" label="是否外链">
+          <template slot-scope="scope">
+            {{scope.row.meta.isExternalLinks ? '是' : '否'}}
+          </template>
+        </el-table-column>
+        <el-table-column prop="meta.externalLinkUrl" label="外链地址" show-overflow-tooltip>
+          <template slot-scope="scope">
+            {{scope.row.meta.externalLinkUrl ? scope.row.meta.externalLinkUrl : ''}}
+          </template>
+        </el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button type="text" size="small" @click="onCellEditMenu(scope.row)">修改</el-button>
+            <el-button type="text" size="small" @click="onCellDelMenu(scope.row)">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
     </div>
+    <AddMenu ref="addMenuRef" />
+    <EditMenu ref="editMenuRef" />
   </div>
 </template>
 
 <script>
+import AddMenu from './component/addMenu'
+import EditMenu from './component/editMenu'
 export default {
   name: 'userRole',
+  components: {
+    AddMenu,
+    EditMenu
+  },
   data() {
     return {
-      props: {
-        label: 'name',
-        children: 'zones'
-      },
-      count: 1,
+      tableHeight: 0,
+      ruleForm: {},
       tableData: {
-        data: [{
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }],
+        data: [],
+        loading: true
       }
     }
   },
@@ -74,36 +101,46 @@ export default {
       }
     }
   },
+  mounted() {
+    this.setTableHeight()
+    this.getTableData()
+  },
   methods: {
-    loadNode(node, resolve) {
-      if (node.level === 0) {
-        return resolve([{ name: 'region1' }, { name: 'region2' }]);
-      }
-      if (node.level > 3) return resolve([]);
-
-      var hasChild;
-      if (node.data.name === 'region1') {
-        hasChild = true;
-      } else if (node.data.name === 'region2') {
-        hasChild = false;
-      } else {
-        hasChild = Math.random() > 0.5;
-      }
-
+    getTableData() {
+      this.tableData.loading = true
+      this.tableData.data = this.$store.state.primeMenuData
       setTimeout(() => {
-        var data;
-        if (hasChild) {
-          data = [{
-            name: 'zone' + this.count++
-          }, {
-            name: 'zone' + this.count++
-          }];
-        } else {
-          data = [];
-        }
-
-        resolve(data);
-      }, 500);
+        this.tableData.loading = false
+      }, 500)
+    },
+    // 表格高度
+    setTableHeight() {
+      this.$nextTick(() => {
+        this.tableHeight = `${this.$refs.userRoleWarpBoxRef.clientHeight - 51 - 30}px`
+      })
+    },
+    // 查询
+    onSearch() { },
+    // 重置
+    onReset() { },
+    // 新增
+    addMenu() {
+      this.$refs.addMenuRef.open(this.$store.state.primeMenuData)
+    },
+    // 表格行菜单修改
+    onCellEditMenu(row) {
+      this.$refs.editMenuRef.open(this.$store.state.primeMenuData, row)
+    },
+    // 表格行菜单删除
+    onCellDelMenu(row) {
+      this.$confirm(`此操作将删除名称为"${row.meta.title}"的数据项, 是否继续?`, '提示', {
+        confirmButtonText: '删除',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$message.success('删除成功！')
+        this.getTableData()
+      }).catch(() => { })
     }
   }
 };
@@ -118,17 +155,9 @@ export default {
   .user-role-warp-box {
     padding: 15px;
     height: 100%;
-    display: flex;
     border: 1px solid #ebeef5;
     background-color: #fff;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.03) !important;
-    .user-role-warp-left {
-      width: 210px;
-    }
-    .user-role-warp-right {
-      flex: 1;
-      padding-left: 15px;
-    }
   }
 }
 </style>

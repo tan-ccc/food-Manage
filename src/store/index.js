@@ -24,8 +24,9 @@ export default new Vuex.Store({
       subMenuTheme: 'dark', // 菜单主题颜色 1、 dark 暗色  2、 light 亮色
       isSplitMenu: false, // 自动菜单分割(仅 classic 经典布局生效)
     },
-    menuData: {}, // 后端返回动态路由
-    originalMenuData: {}, // 后端返回未处理过的动态路由, `breadcrumb 面包屑中使用`
+    menuData: {}, // 后端返回动态路由，处理了 `component` 路径、`hidden` 字段
+    originalMenuData: {}, // 后端返回未处理过的动态路由, `breadcrumb 面包屑中使用`，防止路由缓存时，menuData 变化，originalMenuData也跟着变化。
+    primeMenuData: [], // 后端返回最原始动态路由，未处理 `component` 路径、`hidden` 字段，用于菜单管理中显示(页面路径：用户/菜单管理)
     // 路由缓存数据，字符串为组件中的 `name` 值，想要缓存嵌套路由，得先在当前组件中定义 `name` 值
     keepAliveList: ['home', 'docs', 'menu2', 'menu11', 'menu122', 'basicForm']
   },
@@ -36,8 +37,14 @@ export default new Vuex.Store({
     },
     // 后端返回动态路由
     setMenuData(state, res) {
-      state.menuData = res
-      state.originalMenuData = JSON.parse(JSON.stringify(res))
+      state.menuData = res;
+      state.originalMenuData = JSON.parse(JSON.stringify(res));
+    },
+    // 设置不处理 `component` 路径的原始值，用于菜单管理中显示(页面路径：用户/菜单管理)
+    setPrimeMenuData(state, res) {
+      // 处理路径 `component` 关键字, 防止页面不显示内容(用户/菜单管理列表中的"组件路径")
+      res.children.map(v => v['componentPath'] = v.component);
+      state.primeMenuData = res.children;
     },
   },
   actions: {

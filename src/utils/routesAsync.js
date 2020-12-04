@@ -16,8 +16,10 @@ export function dynamicRouter(view) {
 
 // 添加动态路由，`{ path: '*', redirect: '/404' }` 防止页面刷新，静态路由丢失问题
 // next({ ...to, replace: true }) 动态路由 addRoutes 完毕后才放行，防止刷新时 NProgress 进度条加载2次
+// store.commit('setPrimeMenuData', JSON.parse(JSON.stringify(res))) 设置不处理 `component` 路径的原始值，用于菜单管理中显示(页面路径：用户/菜单管理)
 export function adminUser(router, to, next) {
     getMenuAdmin().then(res => {
+        store.commit('setPrimeMenuData', JSON.parse(JSON.stringify(res.data)))
         resetRouter()
         store.commit('setMenuData', res.data)
         router.addRoutes([dynamicRouter(res.data), { path: '*', redirect: '/404' }])
@@ -28,6 +30,7 @@ export function adminUser(router, to, next) {
 // 添加动态路由，`{ path: '*', redirect: '/404' }` 防止页面刷新，静态路由丢失问题
 export function ordinaryUser(router, to, next) {
     getMenuOrdinary().then(res => {
+        store.commit('setPrimeMenuData', JSON.parse(JSON.stringify(res.data)))
         resetRouter()
         store.commit('setMenuData', res.data)
         router.addRoutes([dynamicRouter(res.data), { path: '*', redirect: '/404' }])

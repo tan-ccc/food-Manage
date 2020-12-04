@@ -16,7 +16,7 @@
               <div class="content-box-time">2020-11-15</div>
             </div>
           </div>
-          <div class="foot-box">前往通知中心</div>
+          <div class="foot-box" @click="onOpen">前往通知中心</div>
         </div>
       </div>
     </transition>
@@ -39,6 +39,10 @@ export default {
     // 关闭
     close() {
       this.isShow = false;
+    },
+    // 跳转到 gitee
+    onOpen() {
+      window.open('https://gitee.com/lyt-top/vue-admin-wonderful');
     }
   }
 }

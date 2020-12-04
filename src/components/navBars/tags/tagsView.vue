@@ -238,6 +238,9 @@ export default {
         padding: 0 10px;
         font-size: 12px;
         text-decoration: none;
+        &:hover {
+          background: #f6f6f6;
+        }
         i {
           height: 16px;
           width: 16px;
@@ -260,6 +263,9 @@ export default {
         color: #fff;
         border-color: #09f;
         position: relative;
+        &:hover {
+          background: #09f;
+        }
         &::before {
           content: "";
           background-color: white;
