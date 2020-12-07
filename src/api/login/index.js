@@ -4,7 +4,7 @@ import request from '@/utils/request'
 export function signIn(params) {
     request({
         url: '/user/signIn',
-        methods: 'post',
+        method: 'post',
         data: params
     })
 }
@@ -13,7 +13,7 @@ export function signIn(params) {
 export function signOut() {
     request({
         url: '/user/signOut',
-        methods: 'post',
+        method: 'post',
         data: params
     })
 }

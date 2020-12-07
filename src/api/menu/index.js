@@ -12,13 +12,13 @@ export function getMenuAdmin(params) {
     if (process.env.NODE_ENV === 'development') {
         return request({
             url: '/gitee/lyt-top/vue-admin-wonderful-images/raw/master/menu/menuAdmin.json',
-            methods: 'get',
+            method: 'get',
             params,
         });
     } else {
         return request({
             url: './menuAdmin.json',
-            methods: 'get'
+            method: 'get'
         })
     }
 }
@@ -28,13 +28,13 @@ export function getMenuOrdinary(params) {
     if (process.env.NODE_ENV === 'development') {
         return request({
             url: '/gitee/lyt-top/vue-admin-wonderful-images/raw/master/menu/menuOrdinary.json',
-            methods: 'get',
+            method: 'get',
             params,
         });
     } else {
         return request({
             url: './menuOrdinary.json',
-            methods: 'get'
+            method: 'get'
         })
     }
 }
