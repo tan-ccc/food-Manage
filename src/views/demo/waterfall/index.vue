@@ -233,7 +233,7 @@ export default {
           color: #fff;
           font-size: 12px;
           backface-visibility: hidden;
-          background: url("~@/assets/images/demo/waterfall/shadow.png") repeat-x;
+          background: url("https://gitee.com/lyt-top/vue-admin-wonderful-images/raw/master/images/demo/waterfall/shadow.png") repeat-x;
           overflow: hidden;
           padding: 0 10px;
           display: flex;

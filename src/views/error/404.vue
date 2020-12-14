@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="right">
-        <img :src="img" />
+        <img src="https://gitee.com/lyt-top/vue-admin-wonderful-images/raw/master/images/error/404.png" />
       </div>
     </div>
   </div>
@@ -21,11 +21,6 @@
 <script>
 export default {
   name: "noFound",
-  data() {
-    return {
-      img: require("@/assets/images/error/404.png"),
-    };
-  },
   methods: {
     // 去首页
     onGoHome() {

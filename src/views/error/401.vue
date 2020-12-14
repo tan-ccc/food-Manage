@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="right">
-        <img :src="img" />
+        <img src="https://gitee.com/lyt-top/vue-admin-wonderful-images/raw/master/images/error/401.png" />
       </div>
     </div>
   </div>
@@ -23,11 +23,6 @@ import { clearSession } from "@/utils/storage";
 import { resetRouter } from '@/router'
 export default {
   name: "noAuth",
-  data() {
-    return {
-      img: require("@/assets/images/error/401.png"),
-    };
-  },
   methods: {
     // 重新授权
     onSetAuth() {
