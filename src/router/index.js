@@ -69,7 +69,7 @@ export function keepAliveSplice(to) {
         v.components.default().then(components => {
           if (components.default.name === 'publics') {
             to.matched.splice(k, 1)
-            router.push(to.path)
+            router.push({ path: to.path, query: to.query })
             keepAliveSplice(to)
           }
         })
