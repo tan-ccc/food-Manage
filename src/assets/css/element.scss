@@ -171,7 +171,8 @@
 .el-table--border::after {
   z-index: 99 !important;
 }
-.el-menu-item .iconfont {
+.el-menu-item .iconfont,
+.el-submenu__title .iconfont {
   margin-right: 5px;
   width: 24px;
   text-align: center;
