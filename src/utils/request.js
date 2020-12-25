@@ -38,10 +38,7 @@ service.interceptors.response.use(
 				router.push("/login");
 				store.commit('setMenuData', {})
 				resetRouter() // 重置路由
-				MessageBox.alert({
-					title: "提示",
-					message: '你已被登出，请重新登录'
-				}).then(() => { }).catch(() => { });
+				MessageBox.alert('你已被登出，请重新登录', '提示', {}).then(() => { }).catch(() => { });
 			}
 			return Promise.reject(service.interceptors.response.error);
 		} else {
