@@ -1,12 +1,16 @@
 <template>
-  <ul class="el-dropdown-menu el-popper el-dropdown-menu--medium custom-contextmenu"
-    :style="`top: ${this.dropdown.y}px;left: ${this.dropdown.x}px;`" x-placement="bottom-end" id="contextmenu"
-    v-show="isDropdown">
-    <li class="el-dropdown-menu__item" v-for="(v,k) in dropdownList" :key="k" @click="menuClose(v.id)">
-      <span v-if="v.affix !== affix">{{v.txt}}</span>
-    </li>
-    <div x-arrow class="popper__arrow" style="left:5px"></div>
-  </ul>
+  <div>
+    <transition name="el-zoom-in-center">
+      <ul class="el-dropdown-menu el-popper el-dropdown-menu--medium custom-contextmenu"
+        :style="`top: ${this.dropdown.y}px;left: ${this.dropdown.x}px;`" x-placement="bottom-end" id="contextmenu"
+        v-show="isDropdown">
+        <li class="el-dropdown-menu__item" v-for="(v,k) in dropdownList" :key="k" @click="menuClose(v.id)">
+          <span v-if="v.affix !== affix">{{v.txt}}</span>
+        </li>
+        <div x-arrow class="popper__arrow" style="left:5px"></div>
+      </ul>
+    </transition>
+  </div>
 </template>
 
 <script>
@@ -41,7 +45,10 @@ export default {
   methods: {
     // 打开右键菜单
     open() {
-      this.isDropdown = true;
+      this.close();
+      setTimeout(() => {
+        this.isDropdown = true;
+      }, 10);
     },
     // 关闭右键菜单
     close() {
