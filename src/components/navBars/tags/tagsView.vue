@@ -19,12 +19,13 @@
 import TagsContextmenu from "@/components/navBars/tags/tagsContextmenu";
 import TagsScrollPane from "@/components/navBars/tags/tagsScrollPane";
 import { routesFilter } from "@/utils/routesFilter";
-import { setSession } from '@/utils/storage'
+import { getSession, getLocal } from "@/utils/storage";
 export default {
   name: "tagsView",
   components: { TagsContextmenu, TagsScrollPane },
   data() {
     return {
+      userInfo: {},
       tagsList: [],
       dropdown: {
         x: "",
@@ -44,25 +45,25 @@ export default {
       };
       this[action[res.id]] && this[action[res.id]](res);
       /**
-       * 当前项关闭时，怪异布局中使用 
+       * 当前项关闭时，怪异布局中使用
        * 路径：`\src\components\navBars\subMenuSplit\strang.vue`
        */
-      this.onTagViewClick()
+      this.onTagViewClick();
     });
     /**
      * 布局切换重新初始化设置了 `affix: true` 固定项数据(router -> routes.js)
      * 路径：\src\components\navBars\dropdown\dropdownDrawer.vue
      */
-    this.bus.$on('initTagsList', () => {
+    this.bus.$on("initTagsList", () => {
       this.initTagsList();
-    })
+    });
     /**
      * 监听离开详情页，如 `筛选组件` 中列表点击，离开时，关闭 `tagsView` 中
      * 显示的详情页 `tags` 项
      */
-    this.bus.$on('closeCurrentTabsView', path => {
-      this.tagsList = this.tagsList.filter(v => v.path !== path);
-    })
+    this.bus.$on("closeCurrentTabsView", (path) => {
+      this.tagsList = this.tagsList.filter((v) => v.path !== path);
+    });
   },
   destroyed() {
     // 关闭右键菜单 `tagsContextmenu.vue`, 每项点击监听
@@ -70,6 +71,12 @@ export default {
     this.bus.$off("closeCurrentTabsView");
   },
   methods: {
+    // 获取用户信息，设置对应nav tag session
+    TagsSession(tags) {
+      const name = getSession("userInfo").userName + "-tags";
+      const value = [...tags];
+      localStorage.setItem(name, JSON.stringify(value));
+    },
     // 递归过滤 `affix: true` 的数组
     filterMenu(arr) {
       return arr
@@ -83,41 +90,61 @@ export default {
           if (item.children) {
             item.children = this.filterMenu(item.children);
           }
-          return item;
+          const Nitem = {
+            name: item.name,
+            path: item.path,
+            meta: {
+              icon: item.meta.icon,
+              parent: item.meta.parent,
+              title: item.meta.title,
+              affix: item.meta.affix,
+            },
+          };
+          return (item = Nitem);
         });
     },
     // 递归查找当前路径下的组件信息
     filterCurrentMenu(arr, currentPath, callback) {
-      arr.map(item => {
+      arr.map((item) => {
         if (item.path === currentPath) {
           callback(item);
           return false;
         }
         item = Object.assign({}, item);
         if (item.children) {
-          item.children = this.filterCurrentMenu(item.children, currentPath, callback);
+          item.children = this.filterCurrentMenu(
+            item.children,
+            currentPath,
+            callback
+          );
         }
-      })
+      });
     },
     // 数组对象去重
     duplicate(arr) {
       let newobj = {};
       arr = arr.reduce((preVal, curVal) => {
-        newobj[curVal.title] ? '' : newobj[curVal.title] = preVal.push(curVal);
+        newobj[curVal.path]
+          ? ""
+          : (newobj[curVal.path] = preVal.push(curVal));
         return preVal;
-      }, [])
+      }, []);
       return arr;
     },
     // 初始化设置了 `affix: true` 和当前路由（防止刷新时丢失） 固定项数据(router -> routes.js)
     initTagsList() {
-      let arr = [];
-      this.filterCurrentMenu(routesFilter(), this.$route.path, res => {
-        arr.push(res);
-      })
-      this.tagsList = this.duplicate([...this.filterMenu(routesFilter()), ...arr]);
+      const name = getSession("userInfo").userName + "-tags";
+      let arr = getLocal(name) || [];
+      this.tagsList = this.duplicate([
+        ...this.filterMenu(routesFilter()),
+        ...arr,
+      ]);
       // 防止菜单设置了 `hidden: true` 时，刷新页面，`tagsView` 丢失高亮问题
-      let flag = this.tagsList.filter(v => v.path === this.$route.path).length <= 0 ? true : false;
-      if (flag) this.$router.push('/home');
+      let flag =
+        this.tagsList.filter((v) => v.path === this.$route.path).length <= 0
+          ? true
+          : false;
+      if (flag) this.$router.push("/home");
     },
     // 当前高亮的菜单
     isActive(v) {
@@ -142,16 +169,20 @@ export default {
     },
     // 当前项 `tags-view` icon 关闭时点击
     onCloseSelectedTag(v, k) {
-      let arr = this.tagsList;
-      arr.splice(k, 1);
-      if (v.path === this.$route.path) {
-        if (arr.length === k) {
-          this.routerPush(arr[k - 1].path);
-        } else {
-          this.routerPush(arr.slice(-1)[0].path);
+      if (this.tagsList.length === 1) {
+        this.bus.$emit("refreshCurrentPage", v.path);
+      } else {
+        let arr = this.tagsList;
+        arr.splice(k, 1);
+        if (v.path === this.$route.path) {
+          if (arr.length === k) {
+            this.routerPush(arr[k - 1].path);
+          } else {
+            this.routerPush(arr.slice(-1)[0].path);
+          }
         }
+        this.onTagViewClick();
       }
-      this.onTagViewClick()
     },
     // 路由跳转函数
     routerPush(path) {
@@ -174,17 +205,23 @@ export default {
     },
     // 右键菜单 `关闭其他` 功能
     closeOtherTags(res) {
-      let arr = []
-      this.filterCurrentMenu(routesFilter(), res.path, res => {
-        arr.push(res)
-      })
-      this.tagsList = this.duplicate([...this.filterMenu(routesFilter()), ...arr])
+      let arr = [];
+      this.filterCurrentMenu(routesFilter(), res.path, (res) => {
+        arr.push(res);
+      });
+      this.tagsList = this.duplicate([
+        ...this.filterMenu(routesFilter()),
+        ...arr,
+      ]);
       this.routerPush(res.path);
     },
-    // 右键菜单 `全部关闭` 功能 
-    closeAllTags(res) {
+    // 右键菜单 `全部关闭` 功能
+    closeAllTags() {
       let { path } = this.tagsList[0];
-      this.tagsList.splice(2, this.tagsList.length);
+      this.tagsList = this.filterMenu(routesFilter());
+      path = [...this.tagsList].length
+        ? [...this.tagsList][[...this.tagsList].length - 1]
+        : path;
       this.routerPush(path);
     },
   },
@@ -200,7 +237,24 @@ export default {
       immediate: true,
       deep: true,
     },
-    tagsList() {
+    tagsList(val) {
+      if (!val.length) {
+        this.$router.push({ path: "/" });
+      }
+      const value = val.map((item) => {
+        const Nitem = {
+          name: item.name,
+          path: item.path,
+          meta: {
+            icon: item.meta.icon,
+            parent: item.meta.parent,
+            title: item.meta.title,
+            affix: item.meta.affix,
+          },
+        };
+        return (item = Nitem);
+      });
+      this.TagsSession([...value]);
       // 监听数组改变，更新 `el-scrollbar`，防止横向滚动条不出现
       this.$refs.tagsScrollPane.updateScrollbar();
     },

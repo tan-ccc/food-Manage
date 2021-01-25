@@ -67,7 +67,7 @@
       <div class="drawer-layout-content-flex">
         <!-- fashion 时尚布局 -->
         <div class="drawer-layout-content-item" @click="onLayoutClick('fashion')">
-          <section class="el-container" :class="{ 'drawer-layout-active': isFashion() }">
+          <section class="el-container el-circular" :class="{ 'drawer-layout-active': isFashion() }">
             <aside class="el-aside" style="width: 20px"></aside>
             <section class="el-container is-vertical">
               <header class="el-header" style="height: 10px"></header>
@@ -83,7 +83,7 @@
 
         <!-- classic 经典布局 -->
         <div class="drawer-layout-content-item" @click="onLayoutClick('classic')">
-          <section class="el-container is-vertical" :class="{ 'drawer-layout-active': isClassic() }">
+          <section class="el-container is-vertical el-circular" :class="{ 'drawer-layout-active': isClassic() }">
             <header class="el-header" style="height: 10px"></header>
             <section class="el-container">
               <aside class="el-aside" style="width: 20px"></aside>
@@ -101,7 +101,7 @@
 
         <!-- elegant 典雅布局 -->
         <div class="drawer-layout-content-item" @click="onLayoutClick('elegant')">
-          <section class="el-container is-vertical" :class="{ 'drawer-layout-active': isElegant() }">
+          <section class="el-container is-vertical el-circular" :class="{ 'drawer-layout-active': isElegant() }">
             <header class="el-header" style="height: 10px"></header>
             <section class="el-container">
               <section class="el-container is-vertical">
@@ -118,7 +118,7 @@
 
         <!-- strange 怪异布局 -->
         <div class="drawer-layout-content-item" @click="onLayoutClick('strange')">
-          <section class="el-container" :class="{ 'drawer-layout-active': isStrange() }">
+          <section class="el-container el-circular" :class="{ 'drawer-layout-active': isStrange() }">
             <aside class="el-aside-dark" style="width: 10px"></aside>
             <aside class="el-aside" style="width: 20px"></aside>
             <section class="el-container is-vertical">
@@ -260,6 +260,11 @@ export default {
       border: 1px solid transparent;
       position: relative;
       padding: 5px;
+      .el-circular {
+        overflow: hidden;
+        border: 1px solid transparent;
+        transition: all 0.3s ease-in-out;
+      }
       .el-container {
         height: 100%;
         .el-aside-dark {
@@ -318,6 +323,26 @@ export default {
           .layout-tips-txt {
             color: #09f !important;
             background-color: #e9eef3 !important;
+          }
+        }
+      }
+      &:hover {
+        .el-circular {
+          transition: all 0.3s ease-in-out;
+          border: 1px solid;
+          border-color: #09f;
+        }
+        .layout-tips-warp {
+          transition: all 0.3s ease-in-out;
+          border-color: #09f;
+          .layout-tips-box {
+            transition: inherit;
+            border-color: #09f;
+            .layout-tips-txt {
+              transition: inherit;
+              color: #09f !important;
+              background-color: #e9eef3 !important;
+            }
           }
         }
       }

@@ -4,16 +4,22 @@
       :fetch-suggestions="menuSearch" @blur="onMenuSearchBlur" ref="menuSearchRef" v-if="isShowSearch"
       v-model="queryMenu" @select="onHandleSelect">
     </el-autocomplete>
-    <i class="el-icon-search icon icon-search" title="菜单搜索" @click="onMenuSearch" v-if="!isShowSearch"></i>
-    <i class="el-icon-setting icon" title="全局配置" @click="$refs.dropdownDrawer.openDrawer()"></i>
-    <div @mouseenter="$refs.dropdownNews.open()" @mouseleave="$refs.dropdownNews.close()">
+    <div class="icon-hover" @click="onMenuSearch">
+      <i class="el-icon-search icon" title="菜单搜索" v-if="!isShowSearch"></i>
+    </div>
+    <div class="icon-hover" @click="$refs.dropdownDrawer.openDrawer()">
+      <i class="icon-skin iconfont icon" title="全局配置"></i>
+    </div>
+    <div class="icon-hover" @mouseenter="$refs.dropdownNews.open()" @mouseleave="$refs.dropdownNews.close()">
       <el-badge is-dot>
         <i class="el-icon-bell icon"></i>
         <DropdownNews ref="dropdownNews" />
       </el-badge>
     </div>
-    <i :class="!isFullscreen?'el-icon-full-screen':'el-icon-remove-outline'" @click="onScreenfull" class="icon mr10"
-      :title="!isFullscreen?'开全屏':'关全屏'"></i>
+    <div class="icon-hover mr10" @click="onScreenfull">
+      <i :class="!isFullscreen?'iconfont icon-fullscreen':'iconfont icon-tuichuquanping'" class="icon"
+        :title="!isFullscreen?'开全屏':'关全屏'"></i>
+    </div>
     <el-dropdown :show-timeout="70" :hide-timeout="50" @command="onDropdownCommand">
       <span class="el-dropdown-link">
         <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1813762643,1914315241&fm=26&gp=0.jpg"
@@ -194,8 +200,15 @@ export default {
     color: #000000;
     height: 50px;
     line-height: 50px;
+  }
+  .icon-hover {
+    cursor: pointer;
     &:hover {
       background: rgba(0, 0, 0, 0.04);
+      i {
+        display: inline-block;
+        animation: logoAnimation 0.3s ease-in-out;
+      }
     }
   }
   .icon-search {

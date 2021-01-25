@@ -4,8 +4,9 @@
       <ul class="el-dropdown-menu el-popper el-dropdown-menu--medium custom-contextmenu"
         :style="`top: ${this.dropdown.y}px;left: ${this.dropdown.x}px;`" x-placement="bottom-end" id="contextmenu"
         v-show="isDropdown">
-        <li class="el-dropdown-menu__item" v-for="(v,k) in dropdownList" :key="k" @click="menuClose(v.id)">
-          <span v-if="v.affix !== affix">{{v.txt}}</span>
+        <li class="el-dropdown-menu__item" v-for="(v, k) in dropdownList" :key="k" @click="menuClose(v.id)">
+          <span v-if="v.affix !== affix">{{ v.txt }}</span>
+          <span v-else-if="!v.affix & (v.affix == affix)">{{ v.txt }}</span>
         </li>
         <div x-arrow class="popper__arrow" style="left:5px"></div>
       </ul>
