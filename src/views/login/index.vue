@@ -5,10 +5,10 @@
         <div class="login-time">{{ time.txt }}</div>
         <div class="login-left-box">
           <div>
-            <div class="logo">
+            <!-- <div class="logo">
               <img :src="logo" />
-            </div>
-            <h2 class="title">后台管理系统一站式平台模板</h2>
+            </div> -->
+            <h2 class="title">味客后台管理系统</h2>
             <div class="msg">
               <div class="msg-author">
                 <span>{{ quotations.name }}</span>
@@ -21,16 +21,16 @@
       </div>
       <div class="login-right">
         <div class="login-main">
-          <h4 class="login-title">vue-admin-wonderful</h4>
+          <h4 class="login-title">用户登录</h4>
           <el-form class="el-form login-form" :model="ruleForm" :rules="rules" ref="ruleForm">
             <el-form-item style="margin-left: 0px" prop="userName">
-              <el-input type="text" placeholder="用户名 admin 或 test" prefix-icon="el-icon-user"
+              <el-input type="text" placeholder="请输入用户名" prefix-icon="el-icon-user"
                 v-model="ruleForm.userName" clearable autocomplete="off"
                 @keyup.enter.native.stop="submitForm('ruleForm')" ref="userName">
               </el-input>
             </el-form-item>
             <el-form-item style="margin-left: 0px" prop="password">
-              <el-input :type="isView ? 'type' : 'password'" placeholder="密码：123456" prefix-icon="el-icon-lock"
+              <el-input :type="isView ? 'type' : 'password'" placeholder="请输入密码" prefix-icon="el-icon-lock"
                 v-model="ruleForm.password" clearable autocomplete="off"
                 @keyup.enter.native.stop="submitForm('ruleForm')" ref="password">
                 <i slot="suffix" :class="[
@@ -62,8 +62,8 @@
             </el-form-item>
           </el-form>
           <div class="login-menu">
-            <a href="javascript:;">第三方登录</a>
-            <a href="javascript:;">友情链接</a>
+            <!-- <a href="javascript:;">第三方登录</a>
+            <a href="javascript:;">友情链接</a> -->
           </div>
         </div>
       </div>
@@ -77,6 +77,7 @@
 </template>
 
 <script>
+import { signIn } from '../../api/login/index'
 import { setSession } from "@/utils/storage";
 import { formatDate, formatAxis } from "@/utils/formatTime";
 import { classicQuotationsList } from './mock'
@@ -88,9 +89,9 @@ export default {
       if (value === "") {
         callback(new Error("请输入用户名"));
         this.inputFocus(0);
-      } else if (value !== "admin" && value !== "test") {
-        callback(new Error("用户名输入错误"));
-        this.inputFocus(0);
+      // } else if (value !== "admin" && value !== "test") {
+      //   callback(new Error("用户名输入错误"));
+      //   this.inputFocus(0);
       } else {
         callback();
         this.inputFocus(1);
@@ -100,8 +101,8 @@ export default {
     const validatePassword = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入密码"));
-      } else if (value !== "123456") {
-        callback(new Error("密码输入错误"));
+      // } else if (value !== "123456") {
+      //   callback(new Error("密码输入错误"));
       } else {
         callback();
         this.inputFocus(2);
@@ -183,12 +184,21 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          setSession("token", Math.random().toString(36).substr(0));
-          setSession("userInfo", { userName: this.ruleForm.userName, time: new Date().getTime() })
-          this.$router.push("/");
-          setTimeout(() => {
-            this.$message.success(`${this.currentTime}欢迎回来！`);
-          }, 300);
+          signIn({username:this.ruleForm.userName,password:this.ruleForm.password}).then(res=>{
+            console.log(res)
+            if(res.err==0){
+              setSession("token", Math.random().toString(36).substr(0));
+              setSession("userInfo", { userinfo: res.userinfo, time: new Date().getTime() })
+              this.$router.push("/");
+              setTimeout(() => {
+                this.$message.success(`${this.currentTime}欢迎回来！`);
+              }, 300);
+            }
+            else{
+              this.$message.error(`${res.msg}`);
+            }
+          })
+          
         } else {
           return false;
         }

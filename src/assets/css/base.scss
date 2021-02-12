@@ -200,6 +200,12 @@ body,
     z-index: unset !important;
   }
 }
+.pointer{
+  cursor: pointer;
+}
+.color-red{
+  color: red;
+}
 
 .flex {
   display: flex;

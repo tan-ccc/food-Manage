@@ -9,7 +9,15 @@ module.exports = {
     https: false, // https： {type: Booleam}
     hotOnly: false, // 热更新
     proxy: {
-      // 设置代理
+       // 设置代理
+       '/api': {
+        target: 'http://localhost:3000/',
+        ws: true,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': '',
+        },
+      },
       '/gitee': {
         target: 'https://gitee.com',
         ws: true,

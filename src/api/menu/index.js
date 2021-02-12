@@ -9,32 +9,32 @@ import request from '@/utils/request';
  */
 // 获取后端动态路由菜单(超级管理)
 export function getMenuAdmin(params) {
-    if (process.env.NODE_ENV === 'development') {
-        return request({
-            url: '/gitee/lyt-top/vue-admin-wonderful-images/raw/master/menu/menuAdmin.json',
-            method: 'get',
-            params,
-        });
-    } else {
+    // if (process.env.NODE_ENV === 'development') {
+    //     return request({
+    //         url: '/gitee/lyt-top/vue-admin-wonderful-images/raw/master/menu/menuAdmin.json',
+    //         method: 'get',
+    //         params,
+    //     });
+    // } else {
         return request({
             url: './menuAdmin.json',
             method: 'get'
         })
-    }
+    // }
 }
 
 // 获取后端动态路由菜单(普通用户)
 export function getMenuOrdinary(params) {
-    if (process.env.NODE_ENV === 'development') {
-        return request({
-            url: '/gitee/lyt-top/vue-admin-wonderful-images/raw/master/menu/menuOrdinary.json',
-            method: 'get',
-            params,
-        });
-    } else {
+    // if (process.env.NODE_ENV === 'development') {
+    //     return request({
+    //         url: '/gitee/lyt-top/vue-admin-wonderful-images/raw/master/menu/menuOrdinary.json',
+    //         method: 'get',
+    //         params,
+    //     });
+    // } else {
         return request({
             url: './menuOrdinary.json',
             method: 'get'
         })
-    }
+    // }
 }

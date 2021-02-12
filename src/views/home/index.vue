@@ -9,20 +9,20 @@
           </div>
           <div class="user-item">
             <div class="user-item-left">
-              <img :src="userImg" />
+              <img :src="userImg"  />
             </div>
             <div class="user-item-right">
               <el-row>
-                <el-col :span="24" class="right-title mb15">{{currentTime}}，{{userInfo.userName}}，{{dailyMessage}}
-                </el-col>
+                <!-- <el-col :span="24" class="right-title mb15">{{currentTime}}，{{userInfo.userName}}，{{dailyMessage}}
+                </el-col> -->
                 <el-col :span="24">
                   <el-col :span="8" class="right-l-v">
                     <div class="right-label">昵称：</div>
-                    <div class="right-value">小柒</div>
+                    <div class="right-value">{{userInfo.userinfo.nickname}}</div>
                   </el-col>
                   <el-col :span="16" class="right-l-v">
                     <div class="right-label">身份：</div>
-                    <div class="right-value">{{userInfo.userName === 'admin' ? '超级管理' : '普通用户'}}</div>
+                    <div class="right-value">{{userInfo.userinfo.type == '1' ? '超级管理员' : '普通用户'}}</div>
                   </el-col>
                 </el-col>
                 <el-col :span="24" class="mt5">
@@ -36,10 +36,10 @@
                   </el-col>
                 </el-col>
                 <el-col :span="24" class="mt15">
-                  <el-button size="small" icon="el-icon-edit-outline" @click="$refs.homeUserSetDialog.open()">修改信息
-                  </el-button>
-                  <el-button size="small" icon="el-icon-unlock">修改密码</el-button>
-                  <el-button size="small" icon="el-icon-position" type="primary">发布活动</el-button>
+                  <!-- <el-button size="small" icon="el-icon-edit-outline" @click="$refs.homeUserSetDialog.open()">修改信息
+                  </el-button> -->
+                  <el-button size="small" icon="el-icon-edit-outline" @click="goedit">修改信息</el-button>
+                  <el-button size="small" icon="el-icon-position" @click="gokind" type="primary">发布菜品</el-button>
                 </el-col>
               </el-row>
             </div>
@@ -90,7 +90,7 @@
       <el-col :span="8">
         <el-card>
           <div slot="header">
-            <span>库存作业</span>
+            <span>菜品库存</span>
           </div>
           <div class="charts">
             <div class="charts-right">
@@ -102,7 +102,7 @@
       <el-col :span="16">
         <el-card>
           <div slot="header">
-            <span>履约情况</span>
+            <span>访客情况</span>
           </div>
           <div class="charts">
             <div class="charts-left mr7">
@@ -122,7 +122,7 @@
       <el-col :span="16">
         <el-card>
           <div slot="header">
-            <span>缺货监控</span>
+            <span>访客流量</span>
             <el-date-picker v-model="charts.time" type="date" placeholder="选择日期" class="home-card-time" size="mini">
             </el-date-picker>
           </div>
@@ -140,7 +140,7 @@
       <el-col :span="8">
         <el-card>
           <div slot="header">
-            <span>履约超时预警</span>
+            <span>订单超时预警</span>
           </div>
           <div class="home-charts">
             <div class="home-charts-item" v-for="(v,k) in chartsRightList" :key="k">
@@ -201,6 +201,7 @@ export default {
       },
     };
     return {
+      userInfo:{},
       recommendList,
       chartsRightList,
       newsInfoList,
@@ -281,6 +282,12 @@ export default {
     },
   },
   methods: {
+    goedit(){
+       this.$router.push('/profile');
+    },
+    gokind(){
+       this.$router.push('/kind');
+    },
     // 随机语录
     initDailyMessage() {
       this.dailyMessage = dailyMessage[Math.floor(Math.random() * dailyMessage.length)]

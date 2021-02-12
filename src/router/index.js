@@ -45,8 +45,8 @@ router.beforeEach((to, from, next) => {
       // 动态加载后端返回路由路由(模拟数据)
       if (!getSession('userInfo')) return false
       if (Object.keys(store.state.menuData).length <= 0) {
-        if (getSession('userInfo').userName === 'admin') adminUser(router, to, next)
-        else if (getSession('userInfo').userName === 'test') ordinaryUser(router, to, next)
+        if (getSession('userInfo').userinfo.type == '1') adminUser(router, to, next)
+        else if (getSession('userInfo').userinfo.type == '0') ordinaryUser(router, to, next)
       } else {
         next()
       }

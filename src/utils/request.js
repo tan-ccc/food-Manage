@@ -5,6 +5,7 @@ import { Message, MessageBox } from "element-ui";
 import { clearSession, getSession } from "@/utils/storage";
 
 const service = axios.create({
+	// baseURL: 'http://localhost:3000',
 	baseURL: process.env.VUE_APP_BASE_API,
 	timeout: 50000,
 	headers: { "Content-Type": "application/json" }

@@ -19,13 +19,21 @@
         }
       },
       {
-        "path": "/docs",
-        "component": "docs",
+        "path": "/kind",
+        "component": "kind",
         "meta": {
-          "parent": "/docs",
+          "parent": "/kind",
+          "icon": "el-icon-notebook-2",
+          "title": "菜品管理"
+        }
+      },
+      {
+        "path": "/order",
+        "component": "order",
+        "meta": {
+          "parent": "/order",
           "icon": "el-icon-s-order",
-          "title": "文档",
-          "affix": true
+          "title": "订单管理"
         }
       },
       {
@@ -35,7 +43,7 @@
         "meta": {
           "parent": "/user",
           "icon": "el-icon-s-help",
-          "title": "用户"
+          "title": "用户管理"
         },
         "children": [
           {
@@ -55,20 +63,20 @@
             "meta": {
               "parent": "/user",
               "icon": "el-icon-s-promotion",
-              "title": "后台管理员"
-            }
-          },
-          {
-            "path": "/user/user-role",
-            "component": "user/role",
-            "parentPath": "/user",
-            "meta": {
-              "parent": "/user",
-              "icon": "el-icon-s-custom",
-              "title": "菜单管理"
+              "title": "添加管理员"
             }
           }
         ]
+      },
+      {
+        "path": "/docs",
+        "component": "docs",
+        "meta": {
+          "parent": "/docs",
+          "icon": "el-icon-s-order",
+          "title": "文档",
+          "affix":false
+        }
       },
       {
         "path": "/profile",
