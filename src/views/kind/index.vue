@@ -2,139 +2,158 @@
   <div class="advanced-form-warp">
     <el-card>
       <div slot="header">
-        <span>采购开单</span>
+        <span>菜单中心</span>
       </div>
-      <div class="advanced-title">基本信息</div>
+    
+      <div class="advanced-title mb20">菜单列表</div>
+      <el-table class="mb20" :data="goodsList" stripe v-loading="false">
+        <!-- <el-table-column prop="id" label="菜品编号"></el-table-column> -->
+        <el-table-column prop="name" label="商品名称"></el-table-column>
+        <el-table-column prop="price" label="商品价格">
+           <template slot-scope="props">
+             <span>{{props.row.price}}/元</span>
+            </template>
+        </el-table-column>
+        <el-table-column  label="上架时间">
+           <template slot-scope="props">
+             <span>{{gettime(props.row.time)}}</span>
+            </template>
+        </el-table-column>
+        <el-table-column label="操作" width="100">
+          <template slot-scope="scope">
+            <el-button @click="onHandle(scope.$index,scope.row)" type="text" size="small">详情</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <!-- <el-button @click="onAddCellTable" size="small" icon="el-icon-plus" class="mt20" style="width:100%;">添加采购
+      </el-button> -->
+        <div class="advanced-title">添加菜单</div>
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm" size="small">
-        <el-row :gutter="20">
-          <el-col :span="8">
-            <el-form-item label="供应商：" prop="a1">
-              <el-cascader :options="options" :props="{ checkStrictly: true,expandTrigger: 'hover' }" clearable
-                placeholder="请选择供应商" v-model="ruleForm.a1" style="width:100%;">
-              </el-cascader>
+        <el-row :gutter="20" class="flex flex-col">
+          <el-col :span="12">
+            <el-form-item label="菜品名称：" prop="name">
+              <el-input v-model="ruleForm.name" placeholder="请输入菜品名称"></el-input>
             </el-form-item>
-            <el-form-item label="商品图片" required >
+            <el-form-item label="菜品图片：" required >
               <el-upload
-  class="avatar-uploader"
-  action="api/upload"
-  :show-file-list="false"
-  :on-success="handleAvatarSuccess"
-  :before-upload="beforeAvatarUpload">
-  <img v-if="imageUrl" :src="imageUrl" class="avatar">
-  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-</el-upload>
-            <el-upload
-                    class="upload-demo"
-                    action="api/upload" 
-                    :on-preview="handlePreview"
-                    :on-remove="handleRemove"
-                    :on-success="uploadSuccess"
-                    ref='upload'
-                    list-type="picture">
-                <el-button size="small" type="primary">点击上传</el-button>
-            </el-upload>
+                class="avatar-uploader"
+                action="api/upload"
+                :show-file-list="false"
+                :on-success="handleAvatarSuccess"
+                :before-upload="beforeAvatarUpload">
+                <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+              </el-upload>
         </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="收货仓库：" prop="a2">
-              <el-select v-model="ruleForm.a2" placeholder="请选择收货仓库" style="width:100%;">
-                <el-option label="一致" value="一致"></el-option>
-                <el-option label="反馈" value="反馈"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="到货时间：" prop="a3">
-              <el-date-picker type="date" placeholder="选择到货时间" v-model="ruleForm.a3" style="width: 100%;">
+          <el-col :span="12">
+            <el-form-item label="上架时间：" prop="time">
+              <el-date-picker  type="date" value-format="timestamp" placeholder="选择上架时间" v-model="ruleForm.time" style="width: 100%;">
               </el-date-picker>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="联系人：" prop="a4">
-              <el-input v-model="ruleForm.a4" placeholder="请输入联系人"></el-input>
+          <el-col :span="12">
+            <el-form-item label="商品价格：" prop="price">
+              <el-input type="number" v-model="ruleForm.price" placeholder="请输入商品价格/元"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="联系电话：" prop="a5">
-              <el-input v-model="ruleForm.a5" placeholder="请输入联系电话"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="邮资：" prop="a6">
-              <el-input v-model="ruleForm.a6" placeholder="请输入邮资"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="商品名称：" prop="a7">
-              <el-input v-model="ruleForm.a7" placeholder="请输入商品名称"></el-input>
+          <el-col :span="12">
+            <el-form-item label="备注：" prop="des">
+              <el-input type="textarea" :autosize="{ minRows: 4, maxRows: 8}" placeholder="请输入备注" v-model="ruleForm.des">
+              </el-input>
             </el-form-item>
           </el-col>
           <el-col :span="16">
-            <el-form-item label="备注：" prop="a8">
-              <el-input type="textarea" :autosize="{ minRows: 1, maxRows: 4}" placeholder="请输入备注" v-model="ruleForm.a8">
+            <el-form-item >
+             <el-button type="primary" icon="el-icon-shopping-cart-1" @click="addmenu">添加菜单</el-button>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+    </el-card>
+    <!-- <el-card class="table-bottom mt15">
+      <el-button size="small" type="primary" @click="submitForm('ruleForm')" icon="el-icon-shopping-cart-1">提交采购数据
+      </el-button>
+    </el-card> -->
+    <el-dialog
+      title="菜单详情"
+      :visible.sync="refuseDialog"
+      class="border"
+      width="600px"
+    >
+       <el-form :model="activeitem" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm" size="small">
+        <el-row :gutter="20" class="flex flex-col">
+          <el-col :span="16">
+            <el-form-item label="菜品名称：" prop="name">
+              <el-input v-model="activeitem.name" placeholder="请输入菜品名称"></el-input>
+            </el-form-item>
+            <el-form-item label="菜品图片：" required >
+              <el-upload
+                class="avatar-uploader"
+                action="api/upload"
+                :show-file-list="false"
+                :on-success="handleAvatarSuccess"
+                :before-upload="beforeAvatarUpload">
+                <img v-if="activeitem.img" :src="activeitem.img" class="avatar">
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+              </el-upload>
+        </el-form-item>
+          </el-col>
+          <el-col :span="16">
+            <el-form-item label="上架时间：" prop="time">
+              <el-date-picker  type="date" value-format="timestamp" placeholder="选择上架时间" v-model="activeitem.time" style="width: 100%;">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="16">
+            <el-form-item label="商品价格：" prop="price">
+              <el-input type="number" v-model="activeitem.price" placeholder="请输入商品价格/元"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="16">
+            <el-form-item label="备注：" prop="des">
+              <el-input type="textarea" :autosize="{ minRows: 1, maxRows: 4}" placeholder="请输入备注" v-model="activeitem.des">
               </el-input>
             </el-form-item>
           </el-col>
         </el-row>
       </el-form>
-      <div class="advanced-title mb20">采购列表</div>
-      <el-table :data="tableData.data" stripe v-loading="tableData.loading">
-        <el-table-column prop="a1" label="sku编码"></el-table-column>
-        <el-table-column prop="a2" label="商品名称"></el-table-column>
-        <el-table-column prop="a3" label="规格"></el-table-column>
-        <el-table-column prop="a4" label="采购数量">
-          <template slot-scope="scope">
-            <el-input size="small" placeholder="输入采购数量" v-model="scope.row.a4"></el-input>
-          </template>
-        </el-table-column>
-        <el-table-column prop="a5" label="采购价">
-          <template slot-scope="scope">
-            <el-input size="small" placeholder="输入采购价" v-model="scope.row.a5"></el-input>
-          </template>
-        </el-table-column>
-        <el-table-column label="操作" width="100">
-          <template slot-scope="scope">
-            <el-button @click="onHandleDel(scope.$index,scope.row)" type="text" size="small">删除</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <el-button @click="onAddCellTable" size="small" icon="el-icon-plus" class="mt20" style="width:100%;">添加采购
-      </el-button>
-    </el-card>
-    <el-card class="table-bottom mt15">
-      <el-button size="small" type="primary" @click="submitForm('ruleForm')" icon="el-icon-shopping-cart-1">提交采购数据
-      </el-button>
-    </el-card>
+      <span slot="footer" class="dialog-footer">
+        <el-button size="small" @click="refuseDialog = false">取 消</el-button>
+        <el-button size="small" type="primary" @click="refuseConfirm"
+          >确定</el-button
+        >
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import { formatAxis, formatDate } from "@/utils/formatTime";
 import { options } from './mock'
+//  this.userInfo.time = formatDate(new Date(this.userInfo.time), 'YYYY-mm-dd HH:MM:SS')
+import { getgoods,addGoods } from '../../api/all/all'
 export default {
   name: 'kind',
   data() {
     return {
+      activeitem:{},
+      refuseDialog:false,
       imageUrl:'',
       options,
       ruleForm: {
-        a1: '',
-        a2: '',
-        a3: '',
-        a4: '',
-        a5: '',
-        a6: '',
-        a7: '',
-        a8: '',
+        name: '',
+        time: '',
+        price: '',
+        img:'',
+        des: '',
       },
       rules: {
-        a1: [{ required: true, message: '请选择供应商', trigger: 'change' }],
-        a2: [{ required: true, message: '请选择收货仓库', trigger: 'change' }],
-        a3: [{ type: 'date', required: true, message: '选择到货时间', trigger: 'change' }],
-        a4: [{ required: true, message: '请输入联系人', trigger: 'blur' }],
-        a5: [{ required: true, message: '请输入联系电话', trigger: 'blur' }],
-        a6: [{ required: true, message: '请输入邮资', trigger: 'blur' }],
-        a7: [{ required: true, message: '请输入商品名称', trigger: 'blur' }],
+        name: [{ required: true, message: '请输入菜品名称', trigger: 'change' }],
+        time: [{ type: 'date', required: true, message: '请选择上架时间', trigger: 'change' }],
+        price: [{ required: true, message: '请输入商品价格', trigger: 'blur' }]
       },
+      goodsList:[],
       tableData: {
         data: [],
         total: 99,
@@ -146,12 +165,44 @@ export default {
       }
     }
   },
+  created(){
+    this.getdata()
+  },
   mounted() {
     this.getTabelData();
   },
   methods: {
+    // getimg(img){
+    //   return `require(../../../public/${img})` 
+    // },
+    refuseConfirm(){},
+    gettime(time){
+      console.log(time)
+      if(time){
+        var date = Number(time)
+        return formatDate(new Date(date), 'YYYY-mm-dd')
+      }
+      // formatDate(time, 'YYYY-mm-dd HH:MM:SS')
+    },
+    getdata(){
+      getgoods().then(res=>{
+        console.log(res)
+        this.goodsList=res
+      })
+    },
+    addmenu(){
+      console.log(this.ruleForm)
+      var item=this.ruleForm
+      addGoods({
+        ...item
+      }).then(res=>{
+        console.log(res)
+      })
+    },
       handleAvatarSuccess(res, file) {
+        console.log(res,file)
         this.imageUrl = URL.createObjectURL(file.raw);
+        this.ruleForm.img=res.site
       },
       beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
@@ -192,15 +243,21 @@ export default {
         this.tableData.loading = false;
       }, 300);
     },
-    // 删除当前行
-    onHandleDel(index, row) {
-      this.$confirm('删除该数据, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.tableData.data.splice(index, 1)
-      }).catch(() => { })
+    // 当前行详情
+    onHandle(index, row) {
+      // this.$confirm('删除该数据, 是否继续?', '提示', {
+      //   confirmButtonText: '确定',
+      //   cancelButtonText: '取消',
+      //   type: 'warning'
+      // }).then(() => {
+      //   this.tableData.data.splice(index, 1)
+      // }).catch(() => { })
+    
+      // row.time=Number(row.time)
+      this.activeitem=row
+      // this.activeitem.img=`../../../public/${this.activeitem.img}`
+        console.log(this.activeitem)
+      this.refuseDialog=true
     },
     // 添加行
     onAddCellTable() {
@@ -217,8 +274,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
+.advanced-form-warp  ::v-deep .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9 !important;
     border-radius: 6px;
     cursor: pointer;
     position: relative;

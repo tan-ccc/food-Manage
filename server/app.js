@@ -46,11 +46,21 @@ var jsonWrite = function(res, ret) {
 };
 var sql = 'SELECT * FROM user';
 var str = " ";
+var goodssql = 'SELECT * FROM goods';
+var goods = " ";
 connection.query(sql, function (err,result) {
     if(err){
         console.log('[SELECT ERROR]:',err.message);
     }
     str = JSON.stringify(result);
+    console.log(result);  //数据库查询结果返回到result中
+ 
+});
+connection.query(goodssql, function (err,result) {
+    if(err){
+        console.log('[SELECT ERROR]:',err.message);
+    }
+    goods = JSON.stringify(result);
     console.log(result);  //数据库查询结果返回到result中
  
 });
@@ -60,12 +70,33 @@ app.get('/',function (req,res) {
 
     // res.send('Hello,myServer');  //服务器响应请求
 });
+app.get('/goods',function (req,res) {
+    res.send(goods);  //服务器响应请求
+
+    // res.send('Hello,myServer');  //服务器响应请求
+});
 // 增加管理员接口
 app.post('/user/addUser', (req, res) => {
     var sql = $sql.user.add;
     var params = req.body;
     console.log(params);
     connection.query(sql, [params.nickname,params.username, params.password], function(err, result) {
+        if (err) {
+            console.log(err);
+            res.send('0');  //服务器响应请求
+        }
+        if (result) {
+            jsonWrite(res, result);
+            res.send('1');  //服务器响应请求
+        }
+    })
+});
+// 增加菜单接口
+app.post('/goods/addGoods', (req, res) => {
+    var sql = $sql.goods.addgoods;
+    var params = req.body;
+    console.log(params);
+    connection.query(sql, [params.name,params.time, params.price, params.des, params.img], function(err, result) {
         if (err) {
             console.log(err);
             res.send('0');  //服务器响应请求
@@ -130,7 +161,7 @@ app.post('/upload',function(req,res){
     let file=req.files[0].filename+path.extname(req.files[0].originalname); //拼接   重新定义的文件名+尾缀
     let newfile=req.files[0].path+path.extname(req.files[0].originalname);  // 把上传的图片文件重命名-->添加尾缀
     console.log(req.files[0].path);  
-     let picPath=`http://localhost:3000/upload/${moment().format('YYYYMMDD')}/`+file; //之后用于存储在数据库的路径
+     let picPath=`upload/${moment().format('YYYYMMDD')}/`+file; //之后用于存储在数据库的路径
     fs.rename(req.files[0].path,newfile,function (err) {  // 将上传的文件重命名   因为上传之后req.files[0].path是没有尾缀的
       if (err){
         console.log('上传失败'+err)
